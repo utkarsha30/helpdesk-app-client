@@ -1,11 +1,11 @@
 <template>
-  <svg id="loading" viewbox="0 0 100 80">
+	<div class="container my-4  rotate">
+  <svg id="loading"  viewbox="0 0 100 80">
   <defs>
     <linearGradient id="gradient" x1="100%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#4383b8" />
       <stop offset="100%" stop-color="#4aa06c" />
     </linearGradient>
-    
     <clipPath id="rects">
       <rect class="rect" id="rect1" x="0" y="0" width="30" height="30" rx="2" ry="2" />
       <rect class="rect" id="rect2" x="0" y="0" width="30" height="30" rx="2" ry="2" />
@@ -23,7 +23,7 @@
   <rect id="container" transform="translate(50) scale(0.707, 0.707) rotate(45)" x="0" y="0" width="100" height="100" fill="url(#gradient)" clip-path="url(#rects)">
   </rect>
 </svg>
-
+</div>
 </template>
 
 <script>
@@ -33,6 +33,11 @@ export default {
 </script>
 
 <style scoped>
+.rotate{
+	padding:10%;
+	transform:rotate(180deg);
+
+}
 @keyframes slide {
     0% {
         transform: translate(0,0);
@@ -117,8 +122,7 @@ export default {
 	}
 }
  svg#loading {
-	display: block;
-	margin: auto;
+	margin-left: 45%;
 	width: 20rem;
 	height: auto;
 }
@@ -207,13 +211,13 @@ export default {
 }
  @keyframes gradient1 {
 	from {
-		stop-color: #4383b8;
+		stop-color: #00919b;
 	}
 	50% {
-		stop-color: #8013b9;
+		stop-color: #774c9e;
 	}
 	to {
-		stop-color: #4383b8;
+		stop-color: #00919b;
 	}
 }
  @keyframes gradient2 {
@@ -221,7 +225,7 @@ export default {
 		stop-color: #4aa06c;
 	}
 	50% {
-		stop-color: #b22358;
+		stop-color: #d61987;
 	}
 	to {
 		stop-color: #4aa06c;
@@ -236,8 +240,7 @@ export default {
 	}
 }
  svg#loading {
-	display: block;
-	margin: auto;
+	margin-left: 45%;
 	width: 20rem;
 	height: auto;
 }
@@ -271,6 +274,11 @@ export default {
  svg#loading #rect7 {
 	animation-delay: -12.857142857143s;
 }
- 
+@media only screen and (max-width: 600px){  
+	svg#loading {
+	margin-left: 35%;
+	
+}
+}
 
 </style>
