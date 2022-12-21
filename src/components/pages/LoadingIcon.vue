@@ -36,7 +36,6 @@ export default {
 .rotate{
 	padding:10%;
 	transform:rotate(180deg);
-
 }
 @keyframes slide {
     0% {
