@@ -8,6 +8,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "author" : "Utkarsha Kshirsagar",
+  "description": "This is a help desk project created to raise and manage tickets",
   "dependencies": {
     "axios": "^1.2.1",
     "bootstrap": "^4.6.2",

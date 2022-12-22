@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand to="/" class="ml-2"><img src="../assets/logo.png" class="img-width"></b-navbar-brand>
+    <b-navbar-brand to="/" class="ml-2"><img src="../assets/images/logo.png" class="img-width" alt="logo"></b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -21,8 +21,8 @@
           <template #button-content>
             <em>Login</em>
           </template>
-          <b-dropdown-item href="#">Client Login</b-dropdown-item>
-          <b-dropdown-item href="#">Employee Login</b-dropdown-item>
+          <b-dropdown-item href="/clientlogin">Client Login</b-dropdown-item>
+          <b-dropdown-item href="/employeelogin">Employee Login</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>

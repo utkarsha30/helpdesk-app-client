@@ -4,6 +4,7 @@ import PageNotFound from '@/components/pages/logins/PageNotFound.vue';
 import HomePage from '@/components/pages/home/HomePage.vue';
 import FaqPage from '@/components/pages/home/FaqPage.vue';
 import RegistrationPage from '@/components/pages/home/RegistrationPage.vue';
+import EmployeeLogin from '@/components/pages/logins/EmployeeLogin.vue';
 const router = new Router({
     mode:'history',
     routes: [
@@ -25,8 +26,13 @@ const router = new Router({
         },
         {
             name:'client-login',
-            path:'/login',
+            path:'/clientlogin',
             component: ClientLogin
+        },
+        {
+            name:'employee-login',
+            path:'/employeelogin',
+            component: EmployeeLogin
         },
         {
             name:'page-not-found',
