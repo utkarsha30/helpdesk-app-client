@@ -1,4 +1,5 @@
 import { clientLogin } from "@/service/clientauth";
+const KEY_ID = "id";
 const KEY_TOKEN = "token";
 const KEY_EMAIL = "email";
 const KEY_ROLE = "role";
@@ -10,6 +11,7 @@ const auth = {
     email: localStorage.getItem(KEY_EMAIL) || "",
     role: localStorage.getItem(KEY_ROLE) || "",
     name: localStorage.getItem(KEY_NAME) || "",
+    id: localStorage.getItem(KEY_ID) || "",
   },
   getters: {
     isAuthenticated(state) {
@@ -29,15 +31,20 @@ const auth = {
     setRole(state, role) {
       state.role = role;
     },
+    setId(state, id) {
+      state.id = id;
+    },
   },
   actions: {
     async clientLogin({ commit }, credentials) {
       const data = await clientLogin(credentials);
-      const { name, email, role, token } = data;
+      const { id, name, email, role, token } = data;
+      localStorage.setItem(KEY_ID, id);
       localStorage.setItem(KEY_NAME, name);
       localStorage.setItem(KEY_EMAIL, email);
       localStorage.setItem(KEY_ROLE, role);
       localStorage.setItem(KEY_TOKEN, token);
+      commit("setId", id);
       commit("setName", name);
       commit("setEmail", email);
       commit("setRole", role);
@@ -45,10 +52,12 @@ const auth = {
       return true;
     },
     clientLogout({ commit }) {
+      commit("setId", "");
       commit("setName", "");
       commit("setEmail", "");
       commit("setRole", "");
       commit("setToken", "");
+      localStorage.removeItem(KEY_ID);
       localStorage.removeItem(KEY_TOKEN);
       localStorage.removeItem(KEY_EMAIL);
       localStorage.removeItem(KEY_NAME);

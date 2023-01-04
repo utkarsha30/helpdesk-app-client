@@ -6,6 +6,7 @@ import FaqPage from "@/components/pages/home/FaqPage.vue";
 import RegistrationPage from "@/components/pages/home/RegistrationPage.vue";
 import EmployeeLogin from "@/components/pages/logins/EmployeeLogin.vue";
 import ClientDashboard from "@/components/pages/client/ClientDashboard.vue";
+import ClientTickets from "@/components/pages/client/ClientTickets.vue";
 const router = new Router({
   mode: "history",
   routes: [
@@ -33,6 +34,11 @@ const router = new Router({
       name: "client-dashboard",
       path: "/client",
       component: ClientDashboard,
+    },
+    {
+      name: "client-all-tickets",
+      path: "/client/tickets",
+      component: ClientTickets,
     },
     {
       name: "employee-login",

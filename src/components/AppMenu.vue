@@ -11,8 +11,13 @@
         <b-navbar-nav>
           <b-nav-item to="/">Home</b-nav-item>
           <b-nav-item href="#">About</b-nav-item>
-          <b-nav-item href="/registration">Registration</b-nav-item>
+          <b-nav-item v-if="!isAuthenticated" href="/registration"
+            >Registration</b-nav-item
+          >
           <b-nav-item href="/faq">FAQ</b-nav-item>
+          <b-nav-item v-if="isAuthenticated" href="/client/tickets"
+            >All Tickets</b-nav-item
+          >
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -42,11 +47,13 @@
 import Vue from "vue";
 export default {
   name: "AppMenu",
-  // computed: {
-  //   authenticated() {
-  //     return this.$store.getters.auth.isAuthenticated();
-  //   },
-  // },
+  computed: {
+    isAuthenticated() {
+      // no module name in case of using getters!
+      // return this.$store.getters.auth.isAuthenticated;
+      return this.$store.getters.isAuthenticated;
+    },
+  },
   methods: {
     logOut() {
       this.$store.dispatch("clientLogout");
