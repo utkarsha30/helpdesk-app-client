@@ -18,45 +18,74 @@
             placeholder="Enter email"
           ></b-form-input>
         </b-form-group>
-        <b-form-group class="block-inline" label-for="clientPassword" label="Password">
+        <b-form-group
+          class="block-inline"
+          label-for="clientPassword"
+          label="Password"
+        >
           <b-input-group>
             <b-form-input
               id="clientPassword"
-              :type= "passwordType"
+              :type="passwordType"
               aria-describedby="password-help-block"
             ></b-form-input>
-          <template #append>
-            <button class="button icon round-corners"  @click.prevent="togglePassword">
-              <span class="is-small is-right">
-                <img  v-if="showPassword" class="w-50" src="../../../assets/images/eye.svg" />
-                <img v-if="!showPassword" class="w-50" src="../../../assets/images/eye_crossed.svg" />
-              </span>
-            </button>
-          </template>   
-      </b-input-group>
+            <template #append>
+              <button
+                class="button icon round-corners"
+                @click.prevent="togglePassword"
+              >
+                <span class="is-small is-right">
+                  <img
+                    v-if="showPassword"
+                    class="w-50"
+                    src="../../../assets/images/eye.svg"
+                  />
+                  <img
+                    v-if="!showPassword"
+                    class="w-50"
+                    src="../../../assets/images/eye_crossed.svg"
+                  />
+                </span>
+              </button>
+            </template>
+          </b-input-group>
         </b-form-group>
-        <b-form-group class="block-inline" label-for="clientConfirmPassword" label="Confirm Password">
+        <b-form-group
+          class="block-inline"
+          label-for="clientConfirmPassword"
+          label="Confirm Password"
+        >
           <b-input-group>
             <b-form-input
               id="clientConfirmPassword"
-              :type= "passwordType"
+              :type="passwordType"
               aria-describedby="password-help-block"
             ></b-form-input>
-          <template #append>
-            <button class="button icon round-corners"  @click.prevent="togglePassword">
-              <span class="is-small is-right">
-                <img  v-if="showPassword" class="w-50" src="../../../assets/images/eye.svg" />
-                <img v-if="!showPassword" class="w-50" src="../../../assets/images/eye_crossed.svg" />
-              </span>
-            </button>
-          </template>   
-      </b-input-group>
+            <template #append>
+              <button
+                class="button icon round-corners"
+                @click.prevent="togglePassword"
+              >
+                <span class="is-small is-right">
+                  <img
+                    v-if="showPassword"
+                    class="w-50"
+                    src="../../../assets/images/eye.svg"
+                  />
+                  <img
+                    v-if="!showPassword"
+                    class="w-50"
+                    src="../../../assets/images/eye_crossed.svg"
+                  />
+                </span>
+              </button>
+            </template>
+          </b-input-group>
         </b-form-group>
         <b-form-group class="text-center">
           <b-button type="submit" class="button-style">Submit</b-button>
         </b-form-group>
-       
-        
+
         <!-- <b-icon icon="eye" ></b-icon> -->
       </b-form>
     </b-card>
@@ -74,21 +103,19 @@ export default {
       password: null,
       confirmPassword: null,
       showPassword: false,
-      passwordType: 'password'
+      passwordType: "password",
     };
   },
   computed: {},
   methods: {
-    togglePassword(){
+    togglePassword() {
       this.showPassword = !this.showPassword;
-      if(this.passwordType === 'password')
-      {
-        this.passwordType = 'text'
+      if (this.passwordType === "password") {
+        this.passwordType = "text";
+      } else {
+        this.passwordType = "password";
       }
-      else{
-        this.passwordType = 'password'
-      }
-    }
+    },
   },
 };
 </script>
@@ -103,9 +130,9 @@ export default {
   align-items: center;
   border: 0;
 }
-.round-corners{
+.round-corners {
   border: 1px solid #ced4da;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 </style>
