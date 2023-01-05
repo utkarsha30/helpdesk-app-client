@@ -15,6 +15,9 @@
             >Registration</b-nav-item
           >
           <b-nav-item href="/faq">FAQ</b-nav-item>
+          <b-nav-item v-if="isAuthenticated" href="/client/newticket"
+            >Raise Ticket</b-nav-item
+          >
           <b-nav-item v-if="isAuthenticated" href="/client/tickets"
             >All Tickets</b-nav-item
           >

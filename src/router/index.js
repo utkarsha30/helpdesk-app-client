@@ -7,6 +7,8 @@ import RegistrationPage from "@/components/pages/home/RegistrationPage.vue";
 import EmployeeLogin from "@/components/pages/logins/EmployeeLogin.vue";
 import ClientDashboard from "@/components/pages/client/ClientDashboard.vue";
 import ClientTickets from "@/components/pages/client/ClientTickets.vue";
+import ClientAddnew from "@/components/pages/client/ClientAddnew.vue";
+import ClientTicketUpdate from "@/components/pages/client/ClientTicketUpdate.vue";
 const router = new Router({
   mode: "history",
   routes: [
@@ -36,9 +38,19 @@ const router = new Router({
       component: ClientDashboard,
     },
     {
+      name: "client-addnew-ticket",
+      path: "/client/newticket",
+      component: ClientAddnew,
+    },
+    {
       name: "client-all-tickets",
       path: "/client/tickets",
       component: ClientTickets,
+    },
+    {
+      name: "client-ticket-update",
+      path: "/client/ticket/:id",
+      component: ClientTicketUpdate,
     },
     {
       name: "employee-login",

@@ -1,37 +1,48 @@
 <template>
-  <b-card class="mb-3 extra-css container my-4">
-    <b-card-title>All tickets report</b-card-title>
-    <table class="table table-hover text-center">
-      <thead>
-        <tr>
-          <th scope="col">Ticket Id</th>
-          <th scope="col">Ticket Title</th>
-          <th scope="col">Ticket Status</th>
-          <th scope="col">Agent</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="p-3" v-for="ticket in tickets" :key="ticket._id">
-          <td>{{ ticket._id }}</td>
-          <td>{{ ticket.title }}</td>
-          <td>{{ ticket.status }}</td>
-          <td>{{ ticket.agent }}</td>
-          <td>
-            <b-button pill class="m-2">
-              <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
-            </b-button>
-            <!-- <b-icon icon="cone-striped" variant="danger"></b-icon> -->
-            <b-button pill variant="info" class="m-2">
-              <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
-            </b-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div>
+    <b-card class="mb-3 extra-css container my-4">
+      <b-card-title>All tickets report</b-card-title>
+      <table class="table table-hover text-center">
+        <thead>
+          <tr>
+            <th scope="col">Ticket Id</th>
+            <th scope="col">Ticket Title</th>
+            <th scope="col">Ticket Status</th>
+            <th scope="col">Agent</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="p-3" v-for="ticket in tickets" :key="ticket._id">
+            <td>{{ ticket._id }}</td>
+            <td>{{ ticket.title }}</td>
+            <td>{{ ticket.status }}</td>
+            <td>{{ ticket.agent }}</td>
+            <td>
+              <router-link
+                :to="{
+                  path: `/client/ticket/${ticket._id}`,
+                  params: { ticket: ticket },
+                }"
+                class="mr-3"
+                exact-active-class="active"
+              >
+                <b-button pill class="m-2">
+                  <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
+                </b-button>
+              </router-link>
+              <!-- <b-icon icon="cone-striped" variant="danger"></b-icon> -->
+              <b-button pill variant="info" class="m-2">
+                <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
+              </b-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <!-- <b-table striped hover :items="tickets"></b-table> -->
-  </b-card>
+      <!-- <b-table striped hover :items="tickets"></b-table> -->
+    </b-card>
+  </div>
 </template>
 
 <script>
@@ -41,8 +52,10 @@ export default {
   data() {
     return {
       tickets: "",
+      id: null,
     };
   },
+  methods: {},
   async mounted() {
     // this.loading = true;
     try {
@@ -78,5 +91,8 @@ export default {
   color: #fff;
   background-color: #066091 !important;
   border-color: #032c42;
+}
+.table-hover tbody tr:hover {
+  background-color: #f8edf5;
 }
 </style>
