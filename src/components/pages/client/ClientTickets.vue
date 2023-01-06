@@ -21,8 +21,11 @@
             <td>
               <router-link
                 :to="{
-                  path: `/client/ticket/${ticket._id}`,
-                  params: { ticket: ticket },
+                  name: `client-ticket-update`,
+                  params: {
+                    id: ticket._id,
+                    ticket,
+                  },
                 }"
                 class="mr-3"
                 exact-active-class="active"

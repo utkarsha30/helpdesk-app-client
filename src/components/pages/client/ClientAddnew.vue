@@ -172,10 +172,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .custom-file-label::after {
-  color: white !important;
-  background-color: #033b59 !important;
+  color: white;
+  background-color: #033b59;
 }
 svg {
   fill: #fff;

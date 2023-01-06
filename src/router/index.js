@@ -51,6 +51,8 @@ const router = new Router({
       name: "client-ticket-update",
       path: "/client/ticket/:id",
       component: ClientTicketUpdate,
+      props: true,
+      query: true,
     },
     {
       name: "employee-login",
