@@ -22,14 +22,23 @@
         </div>
       </div>
     </div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-      <path
-        fill="#472673"
-        fill-opacity="1"
-        d="M0,160L60,138.7C120,117,240,75,360,64C480,53,600,75,720,117.3C840,160,960,224,1080,208C1200,192,1320,96,1380,48L1440,0L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
-      ></path>
-    </svg>
-    <div></div>
+    <div>
+      <svg
+        class="svg-style"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 320"
+      >
+        <path
+          fill="#472673"
+          fill-opacity="1"
+          d="M0,160L60,138.7C120,117,240,75,360,64C480,53,600,75,720,117.3C840,160,960,224,1080,208C1200,192,1320,96,1380,48L1440,0L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+        ></path>
+      </svg>
+      <div class="footer p-3">
+        <p>@utkarsha</p>
+        <p>hsdvkjsbgldfglkdrhgldkfhg</p>
+      </div>
+    </div>
   </div>
   <!-- <svg xmlns="http://www.w3.org/2000/svg" class="a" viewBox="0 0 1440 300">
         <path
@@ -57,6 +66,29 @@ export default {
 </script>
 
 <style scoped>
+.svg-style {
+  position: relative;
+}
+.footer {
+  display: block;
+  width: 100%;
+  height: 30%;
+  text-align: center;
+  background-color: rgba(255, 255, 0, 0.288);
+  position: absolute;
+  top: 600px;
+}
+@media (max-width: 768px) {
+  .footer {
+    display: block;
+    width: 100%;
+    height: 10%;
+    text-align: center;
+    background-color: rgba(255, 255, 0, 0.288);
+    position: absolute;
+    top: 510px;
+  }
+}
 .card-css {
   padding-top: 20%;
 }
