@@ -1,29 +1,26 @@
 <template>
   <!-- <div>-->
   <div>
-    <div class="section1">
-      <div class="row no-gutters p-3">
-        <div class="col-md-6">
-          <img
-            src="../../../assets/images/icon.svg"
-            class="custome-css"
-            alt="Help Desk Icon"
-          />
-        </div>
-        <div class="col-md-6">
-          <div class="card-body card-css">
-            <p class="text-center a">Online Helpdesk</p>
+    <div class="row no-gutters p-3">
+      <div class="col-md-6">
+        <img
+          src="../../../assets/images/icon.svg"
+          class="custome-css"
+          alt="Help Desk Icon"
+        />
+      </div>
+      <div class="col-md-6">
+        <div class="card-body card-css">
+          <p class="text-center a">Online Helpdesk</p>
 
-            <p class="lead text-center b">
-              Managing tickets and improving customer service
-            </p>
-            <b-form-group class="text-center">
-              <b-button type="submit">know more</b-button>
-            </b-form-group>
-          </div>
+          <p class="lead text-center b">
+            Managing tickets and improving customer service
+          </p>
+          <b-form-group class="text-center">
+            <b-button type="submit" to="/about">know more</b-button>
+          </b-form-group>
         </div>
       </div>
-      <div class="curve"></div>
     </div>
     <div class="foot">
       <div class="wave">
@@ -57,8 +54,8 @@
               >&nbsp;&nbsp;<a href="mailto: msutkarsha@gmail.com"
                 ><img
                   src="../../../assets/images/email.svg"
-                  height="40"
-                  width="40" /></a
+                  height="50"
+                  width="50" /></a
             ></small>
           </div>
         </div>
@@ -70,6 +67,7 @@
 <script>
 export default {
   name: "HomePage",
+  methods: {},
 };
 </script>
 

@@ -9,6 +9,9 @@ import ClientDashboard from "@/components/pages/client/ClientDashboard.vue";
 import ClientTickets from "@/components/pages/client/ClientTickets.vue";
 import ClientAddnew from "@/components/pages/client/ClientAddnew.vue";
 import ClientTicketUpdate from "@/components/pages/client/ClientTicketUpdate.vue";
+import AboutPage from "@/components/pages/home/AboutPage.vue";
+import AgentDashboard from "@/components/pages/agent/AgentDashboard.vue";
+import AdminDashboard from "@/components/pages/admin/AdminDashboard.vue";
 const router = new Router({
   mode: "history",
   routes: [
@@ -26,6 +29,11 @@ const router = new Router({
       name: "faq-page",
       path: "/faq",
       component: FaqPage,
+    },
+    {
+      name: "about-page",
+      path: "/about",
+      component: AboutPage,
     },
     {
       name: "client-login",
@@ -59,6 +67,17 @@ const router = new Router({
       path: "/employeelogin",
       component: EmployeeLogin,
     },
+    {
+      name: "admin-dashboard",
+      path: "/admin",
+      component: AdminDashboard,
+    },
+    {
+      name: "agent-dashboard",
+      path: "/agent",
+      component: AgentDashboard,
+    },
+
     {
       name: "page-not-found",
       path: "/*",

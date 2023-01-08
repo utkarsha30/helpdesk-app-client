@@ -10,7 +10,7 @@
       <b-collapse id="nav-collapse" class="ml-3" is-nav>
         <b-navbar-nav>
           <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item href="#">About</b-nav-item>
+          <b-nav-item href="/about">About</b-nav-item>
           <b-nav-item v-if="!isAuthenticated" href="/registration"
             >Registration</b-nav-item
           >
@@ -30,7 +30,7 @@
             @click.prevent="logOut"
             >Signout</b-nav-item
           >
-          <b-nav-item-dropdown v-if="!this.$store.state.auth.token" right>
+          <b-nav-item-dropdown v-if="!isAuthenticated" right>
             <!-- Using 'button-content' slot -->
             <template #button-content>
               <em>Login</em>
