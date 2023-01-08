@@ -57,6 +57,17 @@
         </b-form-group>
       </b-form>
     </b-card>
+    <div v-if="!loading" class="text-muted container my-5">
+      <div>
+        <small><strong>NOTE</strong></small>
+      </div>
+      <div>
+        <small>Email : tejas.mhadgut@gmail.com</small>
+      </div>
+      <div>
+        <small> Password : TejasMhadgut@12</small>
+      </div>
+    </div>
   </div>
 </template>
 
