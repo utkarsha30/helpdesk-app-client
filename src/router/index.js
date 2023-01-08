@@ -12,6 +12,7 @@ import ClientTicketUpdate from "@/components/pages/client/ClientTicketUpdate.vue
 import AboutPage from "@/components/pages/home/AboutPage.vue";
 import AgentDashboard from "@/components/pages/agent/AgentDashboard.vue";
 import AdminDashboard from "@/components/pages/admin/AdminDashboard.vue";
+import ClientAddcomment from "@/components/pages/client/ClientAddcomment.vue";
 const router = new Router({
   mode: "history",
   routes: [
@@ -61,6 +62,12 @@ const router = new Router({
       component: ClientTicketUpdate,
       props: true,
       query: true,
+    },
+    {
+      name: "client-add-comment",
+      path: "/client/ticket/comment/:id",
+      component: ClientAddcomment,
+      props: true,
     },
     {
       name: "employee-login",

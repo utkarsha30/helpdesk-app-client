@@ -25,6 +25,9 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto mr-3">
+          <b-nav-text v-if="this.$store.state.auth.token" class="text-color"
+            >Hello <span>{{ this.$store.state.auth.name }}!</span></b-nav-text
+          >
           <b-nav-item
             v-if="this.$store.state.auth.token"
             @click.prevent="logOut"
@@ -72,6 +75,9 @@ export default {
 </script>
 
 <style scoped>
+.text-color {
+  color: #ffff;
+}
 .img-width {
   width: 50px;
 }

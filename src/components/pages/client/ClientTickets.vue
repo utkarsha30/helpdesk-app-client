@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-card class="mb-3 extra-css container my-4">
+    <loading-icon v-if="loading"></loading-icon>
+    <div class="alert alert-danger" role="alert" v-if="error">
+      {{ error.message }}
+    </div>
+    <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
       <b-card-title>All tickets report</b-card-title>
       <table class="table table-hover text-center">
         <thead>
@@ -35,9 +39,21 @@
                 </b-button>
               </router-link>
               <!-- <b-icon icon="cone-striped" variant="danger"></b-icon> -->
-              <b-button pill variant="info" class="m-2">
-                <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
-              </b-button>
+              <router-link
+                :to="{
+                  name: `client-add-comment`,
+                  params: {
+                    id: ticket._id,
+                    ticket,
+                  },
+                }"
+                class="mr-3"
+                exact-active-class="active"
+              >
+                <b-button pill variant="info" class="m-2">
+                  <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
+                </b-button>
+              </router-link>
             </td>
           </tr>
         </tbody>
@@ -50,17 +66,23 @@
 
 <script>
 import { getTicketsList } from "@/service/client";
+import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 export default {
   name: "ClientTickets",
+  components: {
+    LoadingIcon,
+  },
   data() {
     return {
       tickets: "",
       id: null,
+      loading: false,
+      error: null,
     };
   },
   methods: {},
   async mounted() {
-    // this.loading = true;
+    this.loading = true;
     try {
       const client = await getTicketsList(this.$store.state.auth.id);
       this.tickets = client.tickets;
@@ -68,7 +90,7 @@ export default {
     } catch (error) {
       this.error = error;
     } finally {
-      // this.loading = false;
+      this.loading = false;
     }
   },
 };

@@ -190,4 +190,7 @@ svg {
   align-items: center;
   border: 0;
 }
+.extra-css {
+  box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+}
 </style>
