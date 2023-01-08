@@ -40,7 +40,7 @@
         <div class="footer row copyright">
           <div class="col-md-12 text-center">
             <small class="block"
-              >&copy; 2021 Utkarsha Kshirsagar<br />
+              >&copy; 2023 Utkarsha Kshirsagar<br />
               All Rights Reserved.</small
             >
             <br />
@@ -54,8 +54,8 @@
               >&nbsp;&nbsp;<a href="mailto: msutkarsha@gmail.com"
                 ><img
                   src="../../../assets/images/email.svg"
-                  height="50"
-                  width="50" /></a
+                  height="55"
+                  width="55" /></a
             ></small>
           </div>
         </div>
