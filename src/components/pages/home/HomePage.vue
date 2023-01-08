@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="foot">
       <svg
         class="svg-style"
         xmlns="http://www.w3.org/2000/svg"
@@ -34,10 +34,34 @@
           d="M0,160L60,138.7C120,117,240,75,360,64C480,53,600,75,720,117.3C840,160,960,224,1080,208C1200,192,1320,96,1380,48L1440,0L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
         ></path>
       </svg>
-      <div class="footer p-3">
+      <!-- <div class="footer">
         <p>@utkarsha</p>
         <p>hsdvkjsbgldfglkdrhgldkfhg</p>
-      </div>
+      </div> -->
+      <footer class="container-fluid text-center">
+        <div class="footer row copyright">
+          <div class="col-md-12 text-center">
+            <small class="block"
+              >&copy; 2021 Utkarsha Kshirsagar<br />
+              All Rights Reserved.</small
+            >
+            <br />
+            <small class="block"
+              ><a
+                href="https://www.linkedin.com/in/utkarsha-kshirsagar-34b0bb170"
+                ><img
+                  src="../../../assets/images/linkedin.svg"
+                  height="40"
+                  width="40" /></a
+              >&nbsp;&nbsp;<a href="mailto: msutkarsha@gmail.com"
+                ><img
+                  src="../../../assets/images/email.svg"
+                  height="40"
+                  width="40" /></a
+            ></small>
+          </div>
+        </div>
+      </footer>
     </div>
   </div>
   <!-- <svg xmlns="http://www.w3.org/2000/svg" class="a" viewBox="0 0 1440 300">
@@ -72,11 +96,12 @@ export default {
 .footer {
   display: block;
   width: 100%;
-  height: 30%;
+
   text-align: center;
   background-color: rgba(255, 255, 0, 0.288);
+  color: white;
   position: absolute;
-  top: 600px;
+  top: 700px;
 }
 @media (max-width: 768px) {
   .footer {
@@ -86,7 +111,7 @@ export default {
     text-align: center;
     background-color: rgba(255, 255, 0, 0.288);
     position: absolute;
-    top: 510px;
+    top: 735px;
   }
 }
 .card-css {
