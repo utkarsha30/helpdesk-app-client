@@ -5,7 +5,7 @@
       {{ error.message }}
     </div>
     <div class="alert alert-danger" role="alert" v-if="!this.ticket">
-      Not ticket selected
+      No ticket selected
     </div>
     <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
       <b-card-title v-if="this.ticket">Edit ticket {{ id }}</b-card-title>

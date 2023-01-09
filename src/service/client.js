@@ -30,4 +30,16 @@ const updateTicketDetails = async (id, ticketDetails) => {
   );
   return response.data;
 };
-export { getTicketsList, postNewTicket, updateTicketDetails };
+const addComment = async (id, ticketDetails) => {
+  const response = await axios.patch(
+    `${BASE_URL}/tickets/${id}/addcomment`,
+    ticketDetails,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
+export { getTicketsList, postNewTicket, updateTicketDetails, addComment };
