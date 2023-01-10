@@ -21,6 +21,12 @@ const auth = {
     isAdmin(state) {
       return state.role === "admin";
     },
+    isAgent(state) {
+      return state.role === "agent";
+    },
+    isClient(state) {
+      return state.role === "client";
+    },
   },
   mutations: {
     setToken(state, token) {

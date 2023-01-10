@@ -7,6 +7,7 @@
     <div class="alert alert-danger" role="alert" v-if="!this.ticket">
       No ticket selected
     </div>
+
     <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
       <b-card-title v-if="this.ticket">Edit ticket {{ id }}</b-card-title>
       <hr />
@@ -45,7 +46,7 @@
             </b-input-group-prepend>
             <b-form-file
               id="ticketAttachement"
-              v-model="attachement"
+              v-model="attachments"
               @change="previewImage"
               accept="image/*"
             ></b-form-file>
@@ -94,7 +95,7 @@ export default {
       selectedCategory: this.ticket.category,
       title: this.ticket.title,
       description: this.ticket.description,
-      attachement: this.ticket.attachement,
+      attachments: this.ticket.attachments,
       categories: [],
       preview: null,
       image: null,
@@ -118,7 +119,7 @@ export default {
         description: this.description,
         category: this.selectedCategory,
         client: this.$store.state.auth.id,
-        attachements: this.attachement,
+        attachments: this.attachments,
       };
 
       try {

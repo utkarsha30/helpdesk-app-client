@@ -4,6 +4,7 @@
     <div class="alert alert-danger" role="alert" v-if="error">
       {{ error.message }}
     </div>
+    <client-dashboard v-if="!loading && !error"></client-dashboard>
     <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
       <b-card-title>All tickets report</b-card-title>
       <table class="table table-hover text-center">
@@ -65,12 +66,14 @@
 </template>
 
 <script>
+import ClientDashboard from "./ClientDashboard.vue";
 import { getTicketsList } from "@/service/client";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 export default {
   name: "ClientTickets",
   components: {
     LoadingIcon,
+    ClientDashboard,
   },
   data() {
     return {

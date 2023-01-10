@@ -17,6 +17,19 @@ const postNewTicket = async (ticketDetails) => {
   });
   return response.data;
 };
+const postAttachments = async (id, image) => {
+  console.log("type", typeof image);
+  const response = await axios.patch(
+    `${BASE_URL}/tickets/add/${id}/attachments`,
+    image,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return response.data;
+};
 const updateTicketDetails = async (id, ticketDetails) => {
   console.log("body", ticketDetails);
   const response = await axios.patch(
@@ -42,4 +55,19 @@ const addComment = async (id, ticketDetails) => {
   );
   return response.data;
 };
-export { getTicketsList, postNewTicket, updateTicketDetails, addComment };
+const getTicketsCount = async (clientId) => {
+  const response = await axios.get(`${BASE_URL}/tickets/${clientId}/summary`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
+export {
+  getTicketsList,
+  postNewTicket,
+  updateTicketDetails,
+  addComment,
+  getTicketsCount,
+  postAttachments,
+};

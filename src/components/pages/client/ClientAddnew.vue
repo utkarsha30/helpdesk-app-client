@@ -38,7 +38,7 @@
             </b-input-group-prepend>
             <b-form-file
               id="ticketAttachement"
-              v-model="attachement"
+              ref="attachments"
               @change="previewImage"
               accept="image/*"
             ></b-form-file>
@@ -88,14 +88,14 @@
 
 <script>
 import { getAllCategories } from "@/service/categories";
-import { postNewTicket } from "@/service/client";
+import { postNewTicket, postAttachments } from "@/service/client";
 import Vue from "vue";
 export default {
   name: "ClientAddnew",
   data() {
     return {
       categories: [],
-      attachement: null,
+      attachments: null,
       selectedCategory: "",
       title: null,
       description: null,
@@ -119,23 +119,30 @@ export default {
         this.image = input.files[0];
         reader.readAsDataURL(input.files[0]);
       }
+      this.attachments = event.target.files[0];
+      console.log("attachment", this.attachments);
     },
     async Submit() {
-      console.log(this.title);
-      console.log(this.selectedCategory);
-      console.log(this.description);
-      console.log(this.attachement);
-      console.log(typeof this.attachement);
+      // console.log(this.title);
+      // console.log(this.selectedCategory);
+      // console.log(this.description);
+      // console.log(this.attachement);
+      // console.log(typeof this.attachement);
       const ticketDetails = {
         title: this.title,
         description: this.description,
         category: this.selectedCategory,
         client: this.$store.state.auth.id,
-        attachements: this.attachement,
       };
       try {
         const newTicket = await postNewTicket(ticketDetails);
         if (newTicket) {
+          console.log("newTicket", newTicket);
+          const formData = new FormData();
+          formData.append("attachments", this.attachments);
+          console.log(formData);
+          const image = await postAttachments(newTicket._id, formData);
+          console.log(image);
           Vue.$toast.open({
             message: `Ticket '${newTicket._id}'  was added`,
             type: "success",
