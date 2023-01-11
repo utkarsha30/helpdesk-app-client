@@ -4,81 +4,30 @@
     <div class="alert alert-danger" role="alert" v-if="error">
       {{ error.message }}
     </div>
-    <client-dashboard v-if="!loading && !error"></client-dashboard>
+    <DashboardView :count="count" v-if="!loading && !error"></DashboardView>
     <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
-      <b-card-title>All tickets report</b-card-title>
-      <table class="table table-hover text-center">
-        <thead>
-          <tr>
-            <th scope="col">Ticket Id</th>
-            <th scope="col">Ticket Title</th>
-            <th scope="col">Ticket Status</th>
-            <th scope="col">Agent</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="p-3" v-for="ticket in tickets" :key="ticket._id">
-            <td>{{ ticket._id }}</td>
-            <td>{{ ticket.title }}</td>
-            <td>{{ ticket.status }}</td>
-            <td>{{ ticket.agent }}</td>
-            <td>
-              <router-link
-                :to="{
-                  name: `client-ticket-update`,
-                  params: {
-                    id: ticket._id,
-                    ticket,
-                  },
-                }"
-                class="mr-3"
-                exact-active-class="active"
-              >
-                <b-button pill class="m-2">
-                  <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
-                </b-button>
-              </router-link>
-              <!-- <b-icon icon="cone-striped" variant="danger"></b-icon> -->
-              <router-link
-                :to="{
-                  name: `client-add-comment`,
-                  params: {
-                    id: ticket._id,
-                    ticket,
-                  },
-                }"
-                class="mr-3"
-                exact-active-class="active"
-              >
-                <b-button pill variant="info" class="m-2">
-                  <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
-                </b-button>
-              </router-link>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- <b-table striped hover :items="tickets"></b-table> -->
+      <TableView :tickets="tickets"></TableView>
     </b-card>
   </div>
 </template>
 
 <script>
-import ClientDashboard from "./ClientDashboard.vue";
-import { getTicketsList } from "@/service/client";
+// import ClientDashboard from "./ClientDashboard.vue";
+import { getTicketsList, getTicketsCount } from "@/service/client";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
+import TableView from "@/components/utils/TableView.vue";
+import DashboardView from "@/components/utils/DashboardView.vue";
 export default {
   name: "ClientTickets",
   components: {
+    TableView,
     LoadingIcon,
-    ClientDashboard,
+    DashboardView,
   },
   data() {
     return {
-      tickets: "",
-      id: null,
+      tickets: [],
+      count: [],
       loading: false,
       error: null,
     };
@@ -89,6 +38,8 @@ export default {
     try {
       const client = await getTicketsList(this.$store.state.auth.id);
       this.tickets = client.tickets;
+      const count = await getTicketsCount(this.$store.state.auth.id);
+      this.count = count;
       console.log(client.tickets);
     } catch (error) {
       this.error = error;

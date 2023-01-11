@@ -39,6 +39,7 @@
             rows="3"
           ></b-form-textarea>
         </b-form-group>
+        <img class="w-25" :src="attachments" />
         <b-form-group label="Attachement" label-for="ticketAttachement">
           <b-input-group>
             <b-input-group-prepend class="icon-color" is-text>
@@ -55,8 +56,8 @@
             <p>Preview Here:</p>
             <template v-if="preview">
               <img :src="preview" class="img-fluid w-25" />
-              <p class="mb-0">file name: {{ image.name }}</p>
-              <p class="mb-0">size: {{ image.size / 1024 }}KB</p>
+              <!-- <p class="mb-0">file name: {{ image.name }}</p>
+              <p class="mb-0">size: {{ image.size / 1024 }}KB</p> -->
             </template>
           </div>
         </b-form-group>
@@ -65,6 +66,7 @@
         </b-form-group>
       </b-form>
     </b-card>
+    {{ attachments }}
   </div>
 </template>
 
@@ -97,7 +99,7 @@ export default {
       description: this.ticket.description,
       attachments: this.ticket.attachments,
       categories: [],
-      preview: null,
+      preview: this.ticket.attachments,
       image: null,
     };
   },
@@ -111,19 +113,26 @@ export default {
         };
         this.image = input.files[0];
         reader.readAsDataURL(input.files[0]);
+        this.attachments = event.target.files[0];
       }
     },
     async Submit() {
-      const ticketDetails = {
-        title: this.title,
-        description: this.description,
-        category: this.selectedCategory,
-        client: this.$store.state.auth.id,
-        attachments: this.attachments,
-      };
+      const formData = new FormData();
+      formData.append("title", this.title);
+      formData.append("description", this.description);
+      formData.append("category", this.selectedCategory);
+      formData.append("client", this.$store.state.auth.id);
+      formData.append("attachments", this.attachments);
+      // const ticketDetails = {
+      //   title: this.title,
+      //   description: this.description,
+      //   category: this.selectedCategory,
+      //   client: this.$store.state.auth.id,
+      //   attachments: this.attachments,
+      // };
 
       try {
-        const updatedTicket = await updateTicketDetails(this.id, ticketDetails);
+        const updatedTicket = await updateTicketDetails(this.id, formData);
         console.log(updatedTicket._id);
         if (updatedTicket) {
           Vue.$toast.open({

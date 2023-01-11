@@ -57,6 +57,24 @@
         </b-form-group>
       </b-form>
     </b-card>
+    <div v-if="!loading" class="text-muted container my-5">
+      <div>
+        <small><strong>NOTE</strong></small>
+      </div>
+      <div>
+        <small>Admin Email : Ukshirsagar@fynd.com</small>
+      </div>
+      <div>
+        <small>Admin Password : AdminAccess@23</small>
+      </div>
+      <hr />
+      <div>
+        <small>Agent Email : Advait@fynd.com</small>
+      </div>
+      <div>
+        <small>Admin Password : AgentAccess@123</small>
+      </div>
+    </div>
   </div>
 </template>
 

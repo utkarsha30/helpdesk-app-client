@@ -29,6 +29,9 @@
           <b-nav-item v-if="isAdmin && isAuthenticated" href="/admin"
             >Dashboard</b-nav-item
           >
+          <b-nav-item v-if="isAgent && isAuthenticated" href="/agent"
+            >Dashboard</b-nav-item
+          >
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

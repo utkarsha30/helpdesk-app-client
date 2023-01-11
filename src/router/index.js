@@ -13,6 +13,8 @@ import AboutPage from "@/components/pages/home/AboutPage.vue";
 import AgentDashboard from "@/components/pages/agent/AgentDashboard.vue";
 import AdminDashboard from "@/components/pages/admin/AdminDashboard.vue";
 import ClientAddcomment from "@/components/pages/client/ClientAddcomment.vue";
+import AdminAllTickets from "@/components/pages/admin/AdminAllTickets.vue";
+import AgentAllTickets from "@/components/pages/agent/AgentAllTickets.vue";
 const router = new Router({
   mode: "history",
   routes: [
@@ -76,13 +78,23 @@ const router = new Router({
     },
     {
       name: "admin-dashboard",
-      path: "/admin",
+      path: "/admin/dashboard",
       component: AdminDashboard,
     },
     {
+      name: "admin-all-tickets-view",
+      path: "/admin",
+      component: AdminAllTickets,
+    },
+    {
       name: "agent-dashboard",
-      path: "/agent",
+      path: "/agent/dashboard",
       component: AgentDashboard,
+    },
+    {
+      name: "agent-all-tickets-view",
+      path: "/agent",
+      component: AgentAllTickets,
     },
 
     {
