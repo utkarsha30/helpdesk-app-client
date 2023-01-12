@@ -1,5 +1,5 @@
 <template>
-   <div>
+ <div>
     <loading-icon v-if="loading"></loading-icon>
     <div class="alert alert-danger" role="alert" v-if="error">
       {{ error.message }}
@@ -78,7 +78,7 @@ import { addComment } from "@/service/client";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import Vue from "vue";
 export default {
-  name: "ClientAddcomment",
+  name: "AgentAddcomment",
   components: {
     LoadingIcon,
   },

@@ -5,16 +5,16 @@ import HomePage from "@/components/pages/home/HomePage.vue";
 import FaqPage from "@/components/pages/home/FaqPage.vue";
 import RegistrationPage from "@/components/pages/home/RegistrationPage.vue";
 import EmployeeLogin from "@/components/pages/logins/EmployeeLogin.vue";
-import ClientDashboard from "@/components/pages/client/ClientDashboard.vue";
 import ClientTickets from "@/components/pages/client/ClientTickets.vue";
 import ClientAddnew from "@/components/pages/client/ClientAddnew.vue";
 import ClientTicketUpdate from "@/components/pages/client/ClientTicketUpdate.vue";
 import AboutPage from "@/components/pages/home/AboutPage.vue";
-import AgentDashboard from "@/components/pages/agent/AgentDashboard.vue";
-import AdminDashboard from "@/components/pages/admin/AdminDashboard.vue";
 import ClientAddcomment from "@/components/pages/client/ClientAddcomment.vue";
 import AdminAllTickets from "@/components/pages/admin/AdminAllTickets.vue";
 import AgentAllTickets from "@/components/pages/agent/AgentAllTickets.vue";
+import AgentAddcomment from "@/components/pages/agent/AgentAddcomment.vue";
+import AdminAddcomment from "@/components/pages/admin/AdminAddcomment.vue";
+import AdminTicketUpdate from "@/components/pages/admin/AdminTicketUpdate.vue";
 const router = new Router({
   mode: "history",
   routes: [
@@ -44,18 +44,13 @@ const router = new Router({
       component: ClientLogin,
     },
     {
-      name: "client-dashboard",
-      path: "/client",
-      component: ClientDashboard,
-    },
-    {
       name: "client-addnew-ticket",
       path: "/client/newticket",
       component: ClientAddnew,
     },
     {
       name: "client-all-tickets",
-      path: "/client/tickets",
+      path: "/client",
       component: ClientTickets,
     },
     {
@@ -77,24 +72,33 @@ const router = new Router({
       component: EmployeeLogin,
     },
     {
-      name: "admin-dashboard",
-      path: "/admin/dashboard",
-      component: AdminDashboard,
-    },
-    {
       name: "admin-all-tickets-view",
       path: "/admin",
       component: AdminAllTickets,
     },
     {
-      name: "agent-dashboard",
-      path: "/agent/dashboard",
-      component: AgentDashboard,
+      name: "admin-add-comment",
+      path: "/admin/ticket/comment/:id",
+      component: AdminAddcomment,
+      props: true,
+    },
+    {
+      name: "admin-ticket-update",
+      path: "/admin/ticket/:id",
+      component: AdminTicketUpdate,
+      props: true,
+      query: true,
     },
     {
       name: "agent-all-tickets-view",
       path: "/agent",
       component: AgentAllTickets,
+    },
+    {
+      name: "agent-add-comment",
+      path: "/agent/ticket/comment/:id",
+      component: AgentAddcomment,
+      props: true,
     },
 
     {

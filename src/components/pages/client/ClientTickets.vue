@@ -4,7 +4,10 @@
     <div class="alert alert-danger" role="alert" v-if="error">
       {{ error.message }}
     </div>
-    <DashboardView :count="count" v-if="!loading && !error"></DashboardView>
+    <DashboardView
+      :count="count"
+      v-if="!loading && !error && count.length !== 0"
+    ></DashboardView>
     <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
       <TableView :tickets="tickets"></TableView>
     </b-card>

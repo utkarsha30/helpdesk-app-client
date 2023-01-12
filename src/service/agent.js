@@ -11,4 +11,8 @@ const getEmployeeAllTicktes = async (employeeId) => {
   console.log("after service");
   return response.data;
 };
-export { getEmployeeAllTicktes };
+const getAgentTicketsCount = async (employeeId) => {
+  const response = await axios.get(`${BASE_URL}/tickets/${employeeId}/count`);
+  return response.data;
+};
+export { getEmployeeAllTicktes, getAgentTicketsCount };

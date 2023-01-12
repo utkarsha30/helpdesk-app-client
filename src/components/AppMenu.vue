@@ -15,15 +15,12 @@
             >Registration</b-nav-item
           >
           <b-nav-item href="/faq">FAQ</b-nav-item>
-          <b-nav-item v-if="isClient && isAuthenticated" href="/client"
-            >Dashboard</b-nav-item
-          >
           <b-nav-item
             v-if="isClient && isAuthenticated"
             href="/client/newticket"
             >Raise Ticket</b-nav-item
           >
-          <b-nav-item v-if="isClient && isAuthenticated" href="/client/tickets"
+          <b-nav-item v-if="isClient && isAuthenticated" href="/client"
             >All Tickets</b-nav-item
           >
           <b-nav-item v-if="isAdmin && isAuthenticated" href="/admin"

@@ -1,13 +1,6 @@
 <template>
   <div>
-    <loading-icon v-if="loading"></loading-icon>
-    <div class="alert alert-danger" role="alert" v-if="error">
-      {{ error.message }}
-    </div>
-    <div class="alert alert-danger" role="alert" v-if="!this.ticket">
-      No ticket selected
-    </div>
-    <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
+    <b-card class="mb-3 extra-css container my-4">
       <b-card-title v-if="this.ticket">Edit ticket {{ id }}</b-card-title>
       <hr />
       <b-form @submit.prevent="Submit">
@@ -38,8 +31,17 @@
             rows="3"
           ></b-form-textarea>
         </b-form-group>
-
         <b-form-group label="Attachement" label-for="ticketAttachement">
+          <b-input-group>
+            <b-input-group-prepend class="icon-color" is-text>
+              <b-icon icon="folder-plus"></b-icon>
+            </b-input-group-prepend>
+            <b-form-file
+              id="ticketAttachement"
+              @change="previewImage"
+              accept="image/*"
+            ></b-form-file>
+          </b-input-group>
           <div class="border p-2 mt-3">
             <p>Preview Here:</p>
             <template v-if="preview">
@@ -58,15 +60,10 @@
 </template>
 
 <script>
-import { getAllCategories } from "@/service/categories";
 import { updateTicketDetails } from "@/service/client";
-import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import Vue from "vue";
 export default {
-  name: "ClientTicketUpdate",
-  components: {
-    LoadingIcon,
-  },
+  name: "TicketUpdateView",
   props: {
     id: {
       type: String,
@@ -76,19 +73,19 @@ export default {
       type: Object,
       required: true,
     },
+    categories: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
-      loading: false,
-      error: null,
       selectedCategory: this.ticket.category,
       title: this.ticket.title,
       description: this.ticket.description,
-      attachments: this.ticket.attachments || null,
-
+      attachments: this.ticket.attachments,
       preview: this.ticket.attachments,
       image: null,
-      categories: [],
     };
   },
   methods: {
@@ -112,14 +109,6 @@ export default {
       formData.append("client", this.$store.state.auth.id);
       formData.append("attachments", this.attachments);
       console.log(this.attachments);
-      // const ticketDetails = {
-      //   title: this.title,
-      //   description: this.description,
-      //   category: this.selectedCategory,
-      //   client: this.$store.state.auth.id,
-      //   attachments: this.attachments,
-      // };
-
       try {
         const updatedTicket = await updateTicketDetails(this.id, formData);
         console.log(updatedTicket._id);
@@ -144,10 +133,6 @@ export default {
         this.loading = false;
       }
     },
-  },
-  async mounted() {
-    const categories = await getAllCategories();
-    this.categories = categories;
   },
 };
 </script>

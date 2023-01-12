@@ -5,4 +5,8 @@ const getAllTickets = async () => {
   const response = await axios.get(`${BASE_URL}/tickets`);
   return response.data;
 };
-export { getAllTickets };
+const getAdminTicketsCount = async () => {
+  const response = await axios.get(`${BASE_URL}/tickets/count`);
+  return response.data;
+};
+export { getAllTickets, getAdminTicketsCount };
