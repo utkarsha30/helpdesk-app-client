@@ -15,6 +15,7 @@ import AgentAllTickets from "@/components/pages/agent/AgentAllTickets.vue";
 import AgentAddcomment from "@/components/pages/agent/AgentAddcomment.vue";
 import AdminAddcomment from "@/components/pages/admin/AdminAddcomment.vue";
 import AdminTicketUpdate from "@/components/pages/admin/AdminTicketUpdate.vue";
+import AgentTicketUpdate from "@/components/pages/agent/AgentTicketUpdate.vue";
 const router = new Router({
   mode: "history",
   routes: [
@@ -100,7 +101,13 @@ const router = new Router({
       component: AgentAddcomment,
       props: true,
     },
-
+    {
+      name: "agent-ticket-update",
+      path: "/agent/ticket/:id",
+      component: AgentTicketUpdate,
+      props: true,
+      query: true,
+    },
     {
       name: "page-not-found",
       path: "/*",

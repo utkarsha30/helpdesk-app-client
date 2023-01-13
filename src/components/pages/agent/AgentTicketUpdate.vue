@@ -21,7 +21,7 @@ import { getAllCategories } from "@/service/categories";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import TicketUpdateView from "@/components/utils/TicketUpdateView.vue";
 export default {
-  name: "ClientTicketUpdate",
+  name: "AgentTicketUpdate",
   components: {
     LoadingIcon,
     TicketUpdateView,
@@ -50,5 +50,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 </style>

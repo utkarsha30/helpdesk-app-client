@@ -1,6 +1,13 @@
 <template>
   <div>
-    <b-card class="mb-3 extra-css container my-4">
+    <loading-icon v-if="loading"></loading-icon>
+    <div class="alert alert-danger" role="alert" v-if="error">
+      {{ error.message }}
+    </div>
+    <div class="alert alert-danger" role="alert" v-if="!this.ticket">
+      No ticket selected
+    </div>
+    <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
       <b-card-title v-if="this.ticket">Edit ticket {{ id }}</b-card-title>
       <hr />
       <b-form @submit.prevent="Submit">
@@ -31,17 +38,8 @@
             rows="3"
           ></b-form-textarea>
         </b-form-group>
+
         <b-form-group label="Attachement" label-for="ticketAttachement">
-          <b-input-group>
-            <b-input-group-prepend class="icon-color" is-text>
-              <b-icon icon="folder-plus"></b-icon>
-            </b-input-group-prepend>
-            <b-form-file
-              id="ticketAttachement"
-              @change="previewImage"
-              accept="image/*"
-            ></b-form-file>
-          </b-input-group>
           <div class="border p-2 mt-3">
             <p>Preview Here:</p>
             <template v-if="preview">
@@ -61,9 +59,13 @@
 
 <script>
 import { updateTicketDetails } from "@/service/client";
+import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import Vue from "vue";
 export default {
   name: "TicketUpdateView",
+  components: {
+    LoadingIcon,
+  },
   props: {
     id: {
       type: String,
@@ -80,10 +82,11 @@ export default {
   },
   data() {
     return {
+      loading: false,
+      error: null,
       selectedCategory: this.ticket.category,
       title: this.ticket.title,
       description: this.ticket.description,
-      attachments: this.ticket.attachments,
       preview: this.ticket.attachments,
       image: null,
     };
@@ -98,20 +101,17 @@ export default {
         };
         this.image = input.files[0];
         reader.readAsDataURL(input.files[0]);
-        this.attachments = event.target.files[0];
       }
     },
     async Submit() {
+      this.loading = true;
       const formData = new FormData();
       formData.append("title", this.title);
       formData.append("description", this.description);
       formData.append("category", this.selectedCategory);
       formData.append("client", this.$store.state.auth.id);
-      formData.append("attachments", this.attachments);
-      console.log(this.attachments);
       try {
         const updatedTicket = await updateTicketDetails(this.id, formData);
-        console.log(updatedTicket._id);
         if (updatedTicket) {
           Vue.$toast.open({
             message: `Ticket '${updatedTicket._id}'  was updated`,

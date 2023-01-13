@@ -65,7 +65,7 @@
           <td data-title="Action" v-if="isAgent">
             <router-link
               :to="{
-                name: `client-ticket-update`,
+                name: `agent-ticket-update`,
                 params: {
                   id: ticket._id,
                   ticket,
