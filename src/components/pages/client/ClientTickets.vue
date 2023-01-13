@@ -57,24 +57,4 @@ export default {
 .extra-css {
   box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
 }
-
-.btn-secondary {
-  background-color: #ed0a71 !important;
-  border-color: #f0036e;
-}
-.btn-secondary:hover {
-  background-color: #ec599b !important;
-  border-color: #f0036e;
-}
-.btn-info {
-  background-color: #033b59 !important;
-}
-.btn-info:hover {
-  color: #fff;
-  background-color: #066091 !important;
-  border-color: #032c42;
-}
-.table-hover tbody tr:hover {
-  background-color: #f8edf5;
-}
 </style>

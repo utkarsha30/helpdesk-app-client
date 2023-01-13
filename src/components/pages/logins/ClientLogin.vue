@@ -99,11 +99,12 @@ export default {
       }
     },
     async submitClientLogin() {
+      this.loading = true;
       const loginDetails = {
         email: this.email,
         password: this.password,
       };
-      this.loading = true;
+
       try {
         console.log("page", loginDetails);
         const login = await this.$store.dispatch("clientLogin", loginDetails);
@@ -134,10 +135,15 @@ export default {
 }
 .button-style {
   background-color: #ed0a71;
-  width: 20%;
+  width: 200px;
   align-items: center;
   border: 0;
 }
+.btn-secondary:hover {
+  background-color: #ec599b !important;
+  border-color: #f0036e !important;
+}
+
 .round-corners {
   border: 1px solid #ced4da;
   border-top-right-radius: 0.25rem;

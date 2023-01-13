@@ -141,4 +141,15 @@ export default {
 .extra-css {
   box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
 }
+.button-style {
+  background-color: #ed0a71;
+  width: 200px;
+  align-items: center;
+  border: 0;
+}
+
+.btn-secondary:hover {
+  background-color: #ec599b !important;
+  border-color: #f0036e !important;
+}
 </style>

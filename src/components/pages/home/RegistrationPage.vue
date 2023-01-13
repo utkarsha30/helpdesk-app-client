@@ -126,7 +126,7 @@ export default {
 }
 .button-style {
   background-color: #ed0a71;
-  width: 20%;
+  width: 200px;
   align-items: center;
   border: 0;
 }
