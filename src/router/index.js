@@ -16,6 +16,8 @@ import AgentAddcomment from "@/components/pages/agent/AgentAddcomment.vue";
 import AdminAddcomment from "@/components/pages/admin/AdminAddcomment.vue";
 import AdminTicketUpdate from "@/components/pages/admin/AdminTicketUpdate.vue";
 import AgentTicketUpdate from "@/components/pages/agent/AgentTicketUpdate.vue";
+import AdminAddNewCategory from "@/components/pages/admin/AdminAddNewCategory.vue";
+import AdminCreateFaq from "@/components/pages/admin/AdminCreateFaq.vue";
 const router = new Router({
   mode: "history",
   routes: [
@@ -82,6 +84,16 @@ const router = new Router({
       path: "/admin/ticket/comment/:id",
       component: AdminAddcomment,
       props: true,
+    },
+    {
+      name: "admin-addnew-category",
+      path: "/admin/newcategory",
+      component: AdminAddNewCategory,
+    },
+    {
+      name: "admin-create-faq",
+      path: "/admin/newfaq",
+      component: AdminCreateFaq,
     },
     {
       name: "admin-ticket-update",

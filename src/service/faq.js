@@ -6,4 +6,12 @@ const getAllFaqs = async () => {
 
   return response.data;
 };
-export { getAllFaqs };
+const postNewFaq = async (faqDetails) => {
+  const response = await axios.post(`${BASE_URL}/FAQ/add`, faqDetails, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.data;
+};
+export { getAllFaqs, postNewFaq };

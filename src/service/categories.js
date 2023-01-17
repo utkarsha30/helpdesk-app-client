@@ -9,4 +9,16 @@ const getAllCategories = async () => {
   });
   return response.data;
 };
-export { getAllCategories };
+const postNewCategory = async (categoryDetails) => {
+  const response = await axios.post(
+    `${BASE_URL}/categories/add`,
+    categoryDetails,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
+export { getAllCategories, postNewCategory };

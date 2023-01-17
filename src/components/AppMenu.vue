@@ -26,6 +26,14 @@
           <b-nav-item v-if="isAdmin && isAuthenticated" href="/admin"
             >Dashboard</b-nav-item
           >
+          <b-nav-item
+            v-if="isAdmin && isAuthenticated"
+            href="/admin/newcategory"
+            >New Category</b-nav-item
+          >
+          <b-nav-item v-if="isAdmin && isAuthenticated" href="/admin/newfaq"
+            >Create FAQ</b-nav-item
+          >
           <b-nav-item v-if="isAgent && isAuthenticated" href="/agent"
             >Dashboard</b-nav-item
           >
