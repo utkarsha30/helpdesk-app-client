@@ -21,12 +21,13 @@
         </b-card>
       </div>
       <div class="col-sm mb-3">
-        <b-card title="About Us" class="extra-css text-center">
+        <b-card class="extra-css text-center">
           <img
             class="w-25"
             src="../../../assets/images/aboutus.svg"
             alt="About Us"
           />
+          <b-card-title>About Us</b-card-title>
           <b-card-text>
             Fynd Helpdesk App is build by Utkarsha Kshirsagar as a part of MEVN
             FullStack training.<br />
@@ -53,12 +54,13 @@
         </b-card>
       </div>
       <div class="col-sm mt-4 mb-3">
-        <b-card title="Project Scope" class="extra-css text-center">
+        <b-card class="extra-css text-center">
           <img
             class="w-25"
             src="../../../assets/images/futurescope.svg"
             alt="Future Scope"
           />
+          <b-card-title>Project Scope</b-card-title>
           <b-card-text>
             This project consists of 3 roles namely student, admin and agent.<br />
             Student: raise and manage tickets, add comments on tickets<br />
