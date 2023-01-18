@@ -11,11 +11,7 @@
       <b-card-title v-if="this.ticket">Edit ticket {{ id }}</b-card-title>
       <hr />
       <b-form @submit.prevent="onSubmit">
-        <b-form-group
-          v-if="isClient || isAgent || isAdmin"
-          label-for="ticketCategory"
-          label="Ticket Category"
-        >
+        <b-form-group label-for="ticketCategory" label="Ticket Category">
           <b-form-select
             class="mr-3"
             id="ticketCategory"
@@ -342,7 +338,6 @@ export default {
     },
   },
   async mounted() {
-    console.log(this.ticket.category);
     if (this.isAdmin) {
       const allAgents = await getAllAgents();
       this.agents = allAgents;
