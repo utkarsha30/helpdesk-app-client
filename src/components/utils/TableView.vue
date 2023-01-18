@@ -246,8 +246,11 @@ export default {
     },
   },
   async mounted() {
-    if (this.isAdmin) {
+    if (this.isAdmin || this.isClient) {
       this.allAgents = await getAllAgents();
+      this.allClients = await getAllClients();
+    }
+    if (this.isAgent) {
       this.allClients = await getAllClients();
     }
   },

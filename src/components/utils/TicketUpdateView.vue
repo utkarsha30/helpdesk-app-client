@@ -232,25 +232,61 @@ export default {
       ],
     };
   },
-  validations: {
-    title: {
-      required,
-    },
-    description: {
-      required,
-    },
-    selectedCategory: {
-      required,
-    },
-    selectedAgent: {
-      required,
-    },
-    status: {
-      required,
-    },
-    priority: {
-      required,
-    },
+  validations() {
+    if (this.isAdmin) {
+      return {
+        title: {
+          required,
+        },
+        description: {
+          required,
+        },
+        selectedCategory: {
+          required,
+        },
+        status: {
+          required,
+        },
+        priority: {
+          required,
+        },
+        selectedAgent: {
+          required,
+        },
+      };
+    }
+    if (this.isClient) {
+      return {
+        title: {
+          required,
+        },
+        description: {
+          required,
+        },
+        selectedCategory: {
+          required,
+        },
+      };
+    }
+    if (this.isAgent) {
+      return {
+        title: {
+          required,
+        },
+        description: {
+          required,
+        },
+        selectedCategory: {
+          required,
+        },
+        status: {
+          required,
+        },
+        priority: {
+          required,
+        },
+      };
+    }
   },
   computed: {
     isAgent() {
@@ -299,6 +335,7 @@ export default {
         formData.append("status", this.status);
         formData.append("priority", this.priority);
       } else if (this.isClient) {
+        console.log("Client");
         formData.append("category", this.selectedCategory);
         formData.append("title", this.title);
         formData.append("description", this.description);
