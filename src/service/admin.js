@@ -9,4 +9,8 @@ const getAdminTicketsCount = async () => {
   const response = await axios.get(`${BASE_URL}/tickets/count`);
   return response.data;
 };
-export { getAllTickets, getAdminTicketsCount };
+const getAllAgents = async () => {
+  const response = await axios.get(`${BASE_URL}/employee/agents`);
+  return response.data;
+};
+export { getAllTickets, getAdminTicketsCount, getAllAgents };
