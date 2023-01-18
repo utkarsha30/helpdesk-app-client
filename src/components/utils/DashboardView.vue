@@ -1,80 +1,20 @@
 <template>
   <div class="row my-5 mx-3">
-    <div v-if="isAdmin || isAgent" class="col-sm mb-2">
-      <b-card class="extra-css">
-        <div class="row">
-          <div class="col">
-            <h5 class="card-title text-uppercase text-muted mb-0">
-              {{ count[0]?._id }} Tickets
-            </h5>
-            <span class="h2 font-weight-bold mb-0">{{ count[0]?.count }}</span>
-          </div>
-          <div class="col-auto">
-            <div class="icon icon-shape bg-success text-white rounded-circle">
-              <img
-                src="../../assets/images/ticket.png"
-                class="custome-css"
-                alt="ticket icon"
-              />
-            </div>
-          </div>
-        </div>
-      </b-card>
-    </div>
     <!-- v-if = "count[1]" -->
-    <div class="col-sm mb-2">
+    <div v-for="details in count" :key="details._id" class="col-sm mb-2">
       <b-card class="extra-css">
         <div class="row">
           <div class="col">
             <h5 class="card-title text-uppercase text-muted mb-0">
-              {{ count[1]?._id }} Tickets
+              {{ details._id }} Tickets
             </h5>
-            <span class="h2 font-weight-bold mb-0">{{ count[1]?.count }}</span>
+            <span class="h2 font-weight-bold mb-0">{{ details.count }}</span>
           </div>
           <div class="col-auto">
-            <div class="icon icon-shape bg-danger text-white rounded-circle">
-              <img
-                src="../../assets/images/ticket.png"
-                class="custome-css"
-                alt="ticket icon"
-              />
-            </div>
-          </div>
-        </div>
-      </b-card>
-    </div>
-    <div class="col-sm mb-2">
-      <b-card class="extra-css">
-        <div class="row">
-          <div class="col">
-            <h5 class="card-title text-uppercase text-muted mb-0">
-              {{ count[2]?._id }} Tickets
-            </h5>
-            <span class="h2 font-weight-bold mb-0">{{ count[2]?.count }}</span>
-          </div>
-          <div class="col-auto">
-            <div class="icon icon-shape bg-yellow text-white rounded-circle">
-              <img
-                src="../../assets/images/ticket.png"
-                class="custome-css"
-                alt="ticket icon"
-              />
-            </div>
-          </div>
-        </div>
-      </b-card>
-    </div>
-    <div class="col-sm mb-2">
-      <b-card class="extra-css">
-        <div class="row">
-          <div class="col">
-            <h5 class="card-title text-uppercase text-muted mb-0">
-              {{ count[3]?._id }} Tickets
-            </h5>
-            <span class="h2 font-weight-bold mb-0">{{ count[3]?.count }}</span>
-          </div>
-          <div class="col-auto">
-            <div class="icon icon-shape bg-primary text-white rounded-circle">
+            <div
+              :class="iconColor(details._id)"
+              class="icon icon-shape text-white rounded-circle"
+            >
               <img
                 src="../../assets/images/ticket.png"
                 class="custome-css"
@@ -108,6 +48,22 @@ export default {
       return this.$store.getters.isClient;
     },
   },
+  methods: {
+    iconColor(status) {
+      if (status === "closed") {
+        return "bg-success";
+      }
+      if (status === "open") {
+        return "bg-danger";
+      }
+      if (status === "pending") {
+        return "bg-yellow";
+      }
+      if (status === "processing") {
+        return "bg-primary";
+      }
+    },
+  },
 };
 </script>
 
@@ -131,7 +87,7 @@ export default {
   text-transform: uppercase !important;
 }
 .custome-css {
-  width: 35px;
+  width: 46px;
 }
 .rounded-circle {
   border-radius: 50% !important;

@@ -274,7 +274,7 @@ export default {
   border-radius: 50% !important;
 }
 .custome-css {
-  width: 35px;
+  width: 46px;
 }
 .col-auto {
   width: auto;
