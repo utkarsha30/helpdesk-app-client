@@ -11,8 +11,11 @@
       <b-card-title v-if="this.ticket">Edit ticket {{ id }}</b-card-title>
       <hr />
       <b-form @submit.prevent="onSubmit">
-        {{ this.ticket }}
-        <b-form-group label-for="ticketCategory" label="Ticket Category">
+        <b-form-group
+          v-if="isClient || isAgent || isAdmin"
+          label-for="ticketCategory"
+          label="Ticket Category"
+        >
           <b-form-select
             class="mr-3"
             id="ticketCategory"
@@ -22,6 +25,10 @@
               valid: !$v.selectedCategory.$invalid,
             }"
           >
+            <!-- <option selected value="selected">
+              {{ this.ticket.category }}
+            </option> -->
+            <option selected value="">Select Category</option>
             <option selected value="">Select Category</option>
             <option v-for="category in categories" :key="category._id">
               {{ category.name }}
@@ -33,7 +40,11 @@
             </div>
           </transition>
         </b-form-group>
-        <b-form-group label-for="ticketTitle" label="Ticket Title">
+        <b-form-group
+          v-if="isClient || isAgent || isAdmin"
+          label-for="ticketTitle"
+          label="Ticket Title"
+        >
           <b-form-input
             id="ticketTitle"
             placeholder="Enter title"
@@ -46,7 +57,11 @@
             </div>
           </transition>
         </b-form-group>
-        <b-form-group label-for="ticketDescription" label="Ticket Description">
+        <b-form-group
+          v-if="isClient || isAgent || isAdmin"
+          label-for="ticketDescription"
+          label="Ticket Description"
+        >
           <b-form-textarea
             id="ticketDescription"
             placeholder="Ticket description..."
@@ -146,7 +161,11 @@
           </transition>
         </b-form-group>
 
-        <b-form-group label="Attachement" label-for="ticketAttachement">
+        <b-form-group
+          v-if="isClient || isAgent || isAdmin"
+          label="Attachement"
+          label-for="ticketAttachement"
+        >
           <div class="border p-2 mt-3">
             <p>Preview Here:</p>
             <template v-if="preview">
@@ -192,7 +211,7 @@ export default {
       submitStatus: null,
       loading: false,
       error: null,
-      selectedCategory: this.ticket.category,
+      selectedCategory: this.ticket.category || "",
       title: this.ticket.title,
       description: this.ticket.description,
       client: this.ticket.client,
@@ -284,9 +303,9 @@ export default {
         formData.append("status", this.status);
         formData.append("priority", this.priority);
       } else if (this.isClient) {
+        formData.append("category", this.selectedCategory);
         formData.append("title", this.title);
         formData.append("description", this.description);
-        formData.append("category", this.selectedCategory);
       }
 
       try {
@@ -323,6 +342,7 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.ticket.category);
     if (this.isAdmin) {
       const allAgents = await getAllAgents();
       this.agents = allAgents;

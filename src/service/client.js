@@ -63,6 +63,10 @@ const getTicketsCount = async (clientId) => {
   });
   return response.data;
 };
+const getAllClients = async () => {
+  const response = await axios.get(`${BASE_URL}/client/allclients`);
+  return response.data;
+};
 export {
   getTicketsList,
   postNewTicket,
@@ -70,4 +74,5 @@ export {
   addComment,
   getTicketsCount,
   postAttachments,
+  getAllClients,
 };

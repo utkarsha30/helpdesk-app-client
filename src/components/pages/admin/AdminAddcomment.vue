@@ -33,7 +33,7 @@
            </b-input-group>
          </div>
        </div>
-       <div class="col-md-4 col-sm-12">
+       <div class="col-md-4 col-sm-12 ">
          <b-card header="Your request has been submitted" class="text-center extra-css mb-3">
            <b-card-body>
              <table>
@@ -41,7 +41,7 @@
                  <td>
                    <th>Number</th>
                  </td>
-                 <td>{{ id }}</td>
+                 <td class="Id">{{ id }}</td>
                </tr>
                <tr>
                  <td>
@@ -158,5 +158,10 @@ export default {
 }
 .extra-css {
   box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+}
+@media only screen and (max-width: 1024px) {
+  .Id {
+    word-break: break-all;
+  }
 }
 </style>

@@ -17,15 +17,40 @@
         <tr class="p-3" v-for="ticket in tickets" :key="ticket._id">
           <td data-title="Ticket Id">{{ ticket._id }}</td>
           <td data-title="Ticket Title">{{ ticket.title }}</td>
-          <td data-title="Ticket Status">{{ ticket.status }}</td>
-          <td data-title="Ticket Priority" v-if="isAdmin">
+          <td data-title="Ticket Status">
+            <div class="col-auto">
+              <div
+                :class="getIcon(ticket.status)"
+                class="icon icon-shape text-white rounded-circle"
+              >
+                <img
+                  src="../../assets/images/ticket.png"
+                  class="custome-css"
+                  alt="ticket icon"
+                />
+              </div>
+            </div>
+          </td>
+          <td
+            :class="getPriority(ticket.priority)"
+            data-title="Ticket Priority"
+            v-if="isAdmin"
+          >
             {{ ticket.priority }}
           </td>
-          <td data-title="Agent" v-if="isClient || isAdmin">
-            {{ ticket.agent }}
+          <td
+            data-title="Agent"
+            v-if="isClient || isAdmin"
+            v-text="getAgent(ticket.agent)"
+          >
+            <!-- {{ ticket.agent }} -->
           </td>
-          <td data-title="Ticket Id" v-if="isAgent || isAdmin">
-            {{ ticket.client }}
+          <td
+            data-title="Ticket Id"
+            v-if="isAgent || isAdmin"
+            v-text="getClient(ticket.client)"
+          >
+            <!-- {{ ticket.client }} -->
           </td>
           <!-- For Client -->
           <td data-title="Action" v-if="isClient">
@@ -136,6 +161,8 @@
 </template>
 
 <script>
+import { getAllAgents } from "@/service/admin";
+import { getAllClients } from "@/service/client";
 export default {
   name: "TableView",
   props: {
@@ -143,6 +170,14 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  data() {
+    return {
+      allClients: [],
+      allAgents: [],
+      clientEmail: "",
+      agentEmail: "",
+    };
   },
   computed: {
     isAdmin() {
@@ -155,10 +190,97 @@ export default {
       return this.$store.getters.isClient;
     },
   },
+  methods: {
+    getClient(clientId) {
+      if (clientId) {
+        let requiredClient = this.allClients.filter(
+          (client) => client._id === clientId
+        );
+        if (requiredClient.length !== 0) {
+          this.clientEmail = requiredClient[0].email;
+          return this.clientEmail;
+        } else {
+          return "";
+        }
+      } else {
+        return "";
+      }
+    },
+    getAgent(agentId) {
+      if (agentId) {
+        let result = this.allAgents.filter((agent) => agent._id === agentId);
+        if (result.length !== 0) {
+          this.agentEmail = result[0].email;
+          return this.agentEmail;
+        } else {
+          return "Agent not assigned";
+        }
+      } else {
+        return "Agent not assigned";
+      }
+    },
+    getIcon(status) {
+      if (status === "open") {
+        return "bg-danger";
+      }
+      if (status === "pending") {
+        return "bg-yellow";
+      }
+      if (status === "processing") {
+        return "bg-primary";
+      }
+      if (status === "closed") {
+        return "bg-success";
+      }
+    },
+    getPriority(priority) {
+      if (priority === "high") {
+        return "bg-danger";
+      }
+      if (priority === "medium") {
+        return "bg-primary";
+      }
+      if (priority === "low") {
+        return "bg-success";
+      }
+    },
+  },
+  async mounted() {
+    if (this.isAdmin) {
+      this.allAgents = await getAllAgents();
+      this.allClients = await getAllClients();
+    }
+  },
 };
 </script>
 
 <style scoped>
+.icon {
+  width: 3rem;
+  height: 3rem;
+}
+.icon-shape {
+  display: inline-flex;
+  padding: 12px;
+  text-align: center;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.rounded-circle {
+  border-radius: 50% !important;
+}
+.custome-css {
+  width: 35px;
+}
+.col-auto {
+  width: auto;
+  max-width: none;
+  flex: 0 0 auto;
+}
+.bg-yellow {
+  background-color: #ffd600 !important;
+}
 @media only screen and (max-width: 800px) {
   /* Force table to not be like tables anymore */
   table,
