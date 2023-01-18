@@ -43,7 +43,6 @@ export default {
       this.tickets = client.tickets;
       const count = await getTicketsCount(this.$store.state.auth.id);
       this.count = count;
-      console.log(client.tickets);
     } catch (error) {
       this.error = error;
     } finally {
