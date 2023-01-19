@@ -36,7 +36,7 @@
           <td
             :class="getPriority(ticket.priority)"
             data-title="Ticket Priority"
-            v-if="isAdmin"
+            v-if="isAdmin || isAgent"
           >
             {{ ticket.priority }}
           </td>

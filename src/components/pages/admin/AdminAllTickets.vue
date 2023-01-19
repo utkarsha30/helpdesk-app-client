@@ -4,9 +4,11 @@
     <div class="alert alert-danger" role="alert" v-if="error">
       {{ error.message }}
     </div>
+    <!-- @status fetch values emitted from child to parent use getStatus method to retrieve value -->
     <DashboardView
       :count="count"
       v-if="!loading && !error && count.length !== 0"
+      @status="getStatus"
     ></DashboardView>
     <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
       <TableView :tickets="tickets"></TableView>
@@ -28,17 +30,26 @@ export default {
   },
   data() {
     return {
+      tempTickets: [],
       tickets: [],
       loading: false,
       error: null,
       count: [],
     };
   },
+  methods: {
+    // here value sent from child is fetched
+    getStatus(value) {
+      const temp = this.tempTickets;
+      this.tickets = temp.filter((ticket) => ticket.status === value);
+    },
+  },
   async mounted() {
     this.loading = true;
     try {
       const alltickets = await getAllTickets();
       this.tickets = alltickets;
+      this.tempTickets = alltickets;
       const count = await getAdminTicketsCount();
       this.count = count;
     } catch (error) {

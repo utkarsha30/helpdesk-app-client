@@ -2,7 +2,7 @@
   <div class="row my-5 mx-3">
     <!-- v-if = "count[1]" -->
     <div v-for="details in count" :key="details._id" class="col-sm mb-2">
-      <b-card class="extra-css">
+      <b-card @click="print(details._id)" class="extra-css">
         <div class="row">
           <div class="col">
             <h5 class="card-title text-uppercase text-muted mb-0">
@@ -49,6 +49,10 @@ export default {
     },
   },
   methods: {
+    // print method emits event status with value status for parent component
+    print(status) {
+      this.$emit("status", status);
+    },
     iconColor(status) {
       if (status === "closed") {
         return "bg-success";
