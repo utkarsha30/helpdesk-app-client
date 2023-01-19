@@ -22,6 +22,8 @@
               <div
                 :class="getIcon(ticket.status)"
                 class="icon icon-shape text-white rounded-circle"
+                v-b-tooltip.hover
+                :title="ticket.status"
               >
                 <img
                   src="../../assets/images/ticket.png"
