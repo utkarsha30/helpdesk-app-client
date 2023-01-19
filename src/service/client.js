@@ -9,6 +9,18 @@ const getTicketsList = async (clientId) => {
   });
   return response.data;
 };
+const postNewClient = async (clientDetails) => {
+  const response = await axios.post(
+    `${BASE_URL}/client/register`,
+    clientDetails,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
 const postNewTicket = async (ticketDetails) => {
   const response = await axios.post(`${BASE_URL}/tickets/add`, ticketDetails, {
     headers: {
@@ -75,4 +87,5 @@ export {
   getTicketsCount,
   postAttachments,
   getAllClients,
+  postNewClient,
 };

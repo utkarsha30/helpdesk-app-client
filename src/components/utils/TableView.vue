@@ -65,7 +65,7 @@
               class="mr-3"
               exact-active-class="active"
             >
-              <b-button pill class="m-2">
+              <b-button pill class="m-2" v-b-tooltip.hover title="Edit Ticket">
                 <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
               </b-button>
             </router-link>
@@ -81,7 +81,13 @@
               class="mr-3"
               exact-active-class="active"
             >
-              <b-button pill variant="info" class="m-2">
+              <b-button
+                pill
+                variant="info"
+                class="m-2"
+                v-b-tooltip.hover
+                title="Add Comment"
+              >
                 <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
               </b-button>
             </router-link>
@@ -99,7 +105,7 @@
               class="mr-3"
               exact-active-class="active"
             >
-              <b-button pill class="m-2">
+              <b-button pill class="m-2" v-b-tooltip.hover title="Edit Ticket">
                 <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
               </b-button>
             </router-link>
@@ -115,7 +121,13 @@
               class="mr-3"
               exact-active-class="active"
             >
-              <b-button pill variant="info" class="m-2">
+              <b-button
+                pill
+                variant="info"
+                class="m-2"
+                v-b-tooltip.hover
+                title="Add Comment"
+              >
                 <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
               </b-button>
             </router-link>
@@ -133,10 +145,11 @@
               class="mr-3"
               exact-active-class="active"
             >
-              <b-button pill class="m-2">
+              <b-button pill class="m-2" v-b-tooltip.hover title="Edit Ticket">
                 <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
               </b-button>
             </router-link>
+
             <!-- <b-icon icon="cone-striped" variant="danger"></b-icon> -->
             <router-link
               :to="{
@@ -149,7 +162,13 @@
               class="mr-3"
               exact-active-class="active"
             >
-              <b-button pill variant="info" class="m-2">
+              <b-button
+                pill
+                variant="info "
+                class="m-2"
+                v-b-tooltip.hover
+                title="Add Comment"
+              >
                 <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
               </b-button>
             </router-link>
@@ -256,6 +275,17 @@ export default {
   },
 };
 </script>
+
+<style>
+/* overriding style of hover tooltip */
+.bs-tooltip-top .arrow::before,
+.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+  border-top-color: #453164;
+}
+.tooltip-inner {
+  background-color: #453164 !important;
+}
+</style>
 
 <style scoped>
 .icon {
