@@ -255,11 +255,23 @@ form div .error {
   color: rgb(233, 64, 22);
   font-size: 0.8em;
 }
+/* animation of validation messages */
 .bounce-enter-active {
   animation: bounce-in 0.5s;
 }
 .bounce-leave-active {
   animation: bounce-in 0.7s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 .extra-css {
   box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);

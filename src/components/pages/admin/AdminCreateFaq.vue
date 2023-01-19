@@ -7,20 +7,32 @@
     <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
       <b-card-title>Add New FAQ</b-card-title>
       <hr />
-      <b-form @submit.prevent="Submit">
+      <b-form @submit.prevent="onSubmit">
         <b-form-group label-for="faqQuestion" label="Question">
           <b-form-input
             id="faqQuestion"
             placeholder="Enter frequently asked question"
-            v-model="question"
+            v-model="$v.question.$model"
+            :class="{ error: $v.question.$error, valid: !$v.question.$invalid }"
           ></b-form-input>
+          <transition name="bounce">
+            <div v-if="$v.question.$error" class="errorMessage">
+              <p v-if="!$v.question.required">Question is Required !</p>
+            </div>
+          </transition>
         </b-form-group>
         <b-form-group label-for="faqSolution" label="Solution">
           <b-form-input
             id="faqSolution"
             placeholder="Enter solution"
-            v-model="answer"
+            v-model="$v.answer.$model"
+            :class="{ error: $v.answer.$error, valid: !$v.answer.$invalid }"
           ></b-form-input>
+          <transition name="bounce">
+            <div v-if="$v.answer.$error" class="errorMessage">
+              <p v-if="!$v.answer.required">Answer is Required !</p>
+            </div>
+          </transition>
         </b-form-group>
         <b-form-group class="text-center">
           <b-button type="submit" class="button-style">Submit</b-button>
@@ -31,6 +43,7 @@
 </template>
 
 <script>
+import { required } from "vuelidate/lib/validators";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import { postNewFaq } from "@/service/faq";
 import Vue from "vue";
@@ -45,7 +58,16 @@ export default {
       answer: null,
       loading: false,
       error: null,
+      submitStatus: null,
     };
+  },
+  validations: {
+    question: {
+      required,
+    },
+    answer: {
+      required,
+    },
   },
   methods: {
     async Submit() {
@@ -57,7 +79,7 @@ export default {
       try {
         const newFaq = await postNewFaq(details);
         Vue.$toast.open({
-          message: `New Category '${newFaq._id}'  was added !`,
+          message: `New FAQ '${newFaq._id}'  was added !`,
           type: "success",
           position: "bottom",
         });
@@ -71,11 +93,50 @@ export default {
         this.loading = false;
       }
     },
+    onSubmit() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        this.submitStatus = "FAIL";
+      } else {
+        this.submitStatus = "SUCCESS";
+        this.Submit();
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.7s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.valid {
+  border: 1.5px solid rgb(55, 161, 14);
+  color: rgb(26, 82, 4);
+}
+form div .error {
+  border: 1.5px solid red;
+  color: rgb(247, 10, 10);
+}
+.errorMessage {
+  transition: visibility 0s, opacity 0.5s linear;
+  color: rgb(233, 64, 22);
+  font-size: 0.8em;
+}
 .extra-css {
   box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
 }
