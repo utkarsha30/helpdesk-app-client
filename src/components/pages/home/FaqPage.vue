@@ -42,7 +42,6 @@ export default {
     try {
       const faqs = await getAllFaqs();
       this.faqs = faqs;
-      console.log(this.faqs);
     } catch (error) {
       this.error = error;
     } finally {
