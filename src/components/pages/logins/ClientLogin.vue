@@ -13,7 +13,7 @@
           <b-form-input
             id="clientEmail"
             type="email"
-            v-model="$v.email.$model"
+            v-model.trim="$v.email.$model"
             :class="{ error: $v.email.$error, valid: !$v.email.$invalid }"
             placeholder="Enter email"
           ></b-form-input>
@@ -36,7 +36,7 @@
             <b-form-input
               id="clientPassword"
               :type="show ? 'text' : 'password'"
-              v-model="$v.password.$model"
+              v-model.trim="$v.password.$model"
               :class="{
                 error: $v.password.$error,
                 valid: !$v.password.$invalid,
