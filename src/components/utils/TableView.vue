@@ -7,7 +7,7 @@
           <th scope="col">Ticket Id</th>
           <th scope="col">Ticket Title</th>
           <th scope="col">Ticket Status</th>
-          <th v-if="isAdmin" scope="col">Ticket Priority</th>
+          <th v-if="isAdmin || isAgent" scope="col">Ticket Priority</th>
           <th v-if="isClient || isAdmin" scope="col">Agent</th>
           <th v-if="isAgent || isAdmin" scope="col">Client</th>
           <th scope="col">Action</th>
