@@ -65,7 +65,10 @@
              </b-list-group>
          </b-card>
          <b-card header="Attachement" class="text-center extra-css">
-           <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
+          <div v-if="ticket.attachments" class="w-100">
+            <img  :src="ticket.attachments" class="w-100"/>
+          </div> 
+          <div v-if="!ticket.attachments" class="rectangle">No attachments</div>
          </b-card>
        </div>
      </div>
@@ -142,6 +145,13 @@ export default {
 </script>
  
  <style scoped>
+.rectangle {
+  padding: 20px;
+  text-align: center;
+  border: 1px dotted #555;
+  height: 80px;
+  width: 100%;
+}
 .comment-css {
   height: 500px;
 }

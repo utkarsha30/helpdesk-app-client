@@ -5,9 +5,30 @@
       <thead>
         <tr>
           <th scope="col">Ticket Id</th>
-          <th scope="col">Ticket Title</th>
-          <th scope="col">Ticket Status</th>
-          <th v-if="isAdmin || isAgent" scope="col">Ticket Priority</th>
+          <th scope="col">Title</th>
+          <th scope="col">Status</th>
+          <th v-if="isAdmin || isAgent" scope="col">
+            Priority
+            <b-dropdown
+              size="sm"
+              variant="link"
+              toggle-class="text-decoration-none"
+              no-caret
+            >
+              <template #button-content>
+                <b-icon icon="funnel-fill" aria-hidden="true"></b-icon>
+              </template>
+              <b-dropdown-item @click="filterPriority('low')"
+                >Low</b-dropdown-item
+              >
+              <b-dropdown-item @click="filterPriority('medium')"
+                >medium</b-dropdown-item
+              >
+              <b-dropdown-item @click="filterPriority('high')"
+                >High</b-dropdown-item
+              >
+            </b-dropdown>
+          </th>
           <th v-if="isClient || isAdmin" scope="col">Agent</th>
           <th v-if="isAgent || isAdmin" scope="col">Client</th>
           <th scope="col">Action</th>
@@ -212,6 +233,9 @@ export default {
     },
   },
   methods: {
+    filterPriority(priority) {
+      this.$emit("priority", priority);
+    },
     getClient(clientId) {
       if (clientId) {
         let requiredClient = this.allClients.filter(
@@ -290,6 +314,9 @@ export default {
 </style>
 
 <style scoped>
+.bi-funnel-fill {
+  fill: #033b59;
+}
 .icon {
   width: 3rem;
   height: 3rem;
@@ -388,6 +415,9 @@ export default {
   color: #fff;
   background-color: #066091 !important;
   border-color: #032c42;
+}
+.table {
+  width: 100%;
 }
 .table-hover tbody tr:hover {
   background-color: #f8edf5;

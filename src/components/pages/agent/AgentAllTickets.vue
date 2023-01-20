@@ -12,7 +12,7 @@
     ></DashboardView>
 
     <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
-      <TableView :tickets="tickets"></TableView>
+      <TableView :tickets="tickets" @priority="getPriority"></TableView>
     </b-card>
   </div>
 </template>
@@ -43,6 +43,10 @@ export default {
     getStatus(value) {
       const temp = this.tempTickets;
       this.tickets = temp.filter((ticket) => ticket.status === value);
+    },
+    getPriority(value) {
+      const temp = this.tempTickets;
+      this.tickets = temp.filter((ticket) => ticket.priority === value);
     },
   },
   async mounted() {
