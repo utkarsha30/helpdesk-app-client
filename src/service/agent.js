@@ -15,4 +15,8 @@ const getAgentTicketsCount = async (employeeId) => {
   const response = await axios.get(`${BASE_URL}/tickets/${employeeId}/count`);
   return response.data;
 };
-export { getEmployeeAllTicktes, getAgentTicketsCount };
+const deleteTicket = async (id) => {
+  const response = await axios.delete(`${BASE_URL}/tickets/${id}`);
+  return response.data;
+};
+export { getEmployeeAllTicktes, getAgentTicketsCount, deleteTicket };

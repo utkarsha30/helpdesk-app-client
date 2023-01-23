@@ -1,7 +1,11 @@
 <template>
   <div>
-    <b-card-title>All tickets report</b-card-title>
-    <table id="no-more-tables" class="text-center">
+    <loading-icon v-if="loading"></loading-icon>
+    <div class="alert alert-danger" role="alert" v-if="error">
+      {{ error.message }}
+    </div>
+    <b-card-title v-if="!loading && !error">All tickets report</b-card-title>
+    <table v-if="!loading && !error" id="no-more-tables" class="text-center">
       <thead>
         <tr>
           <th class="ticketId">Ticket Id</th>
@@ -31,11 +35,11 @@
           </th>
           <th v-if="isClient || isAdmin">Agent</th>
           <th v-if="isAgent || isAdmin">Client</th>
-          <th>Action</th>
+          <th class="actioncss">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="ticket in tickets" :key="ticket._id">
+        <tr v-for="(ticket, index) in tickets" :key="ticket._id">
           <td data-title="Ticket Id">{{ ticket._id }}</td>
           <td data-title="Title">{{ ticket.title }}</td>
           <td data-title="Status">
@@ -71,6 +75,7 @@
             v-if="isAgent || isAdmin"
             v-text="getClient(ticket.client)"
           ></td>
+          <!-- admin -->
           <td data-title="Action" v-if="isAdmin">
             <router-link
               :to="{
@@ -108,6 +113,16 @@
                 <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
               </b-button>
             </router-link>
+            <b-button
+              pill
+              variant="danger"
+              class="m-2"
+              v-b-tooltip.hover
+              title="Delete Ticket"
+              @click="deleteCurrentTicket(ticket._id, index)"
+            >
+              <b-icon icon="trash-fill " aria-hidden="true"></b-icon>
+            </b-button>
           </td>
           <!-- client -->
           <td data-title="Action" v-if="isClient">
@@ -186,6 +201,18 @@
                 <b-icon icon="chat-dots-fill " aria-hidden="true"></b-icon>
               </b-button>
             </router-link>
+            <!-- delete button -->
+
+            <b-button
+              pill
+              variant="danger"
+              class="m-2"
+              v-b-tooltip.hover
+              title="Delete Ticket"
+              @click="deleteCurrentTicket(ticket._id, index)"
+            >
+              <b-icon icon="trash-fill " aria-hidden="true"></b-icon>
+            </b-button>
           </td>
         </tr>
       </tbody>
@@ -194,8 +221,11 @@
 </template>
 
 <script>
+import LoadingIcon from "@/components/pages/LoadingIcon.vue";
+import { deleteTicket } from "@/service/agent";
 import { getAllAgents } from "@/service/admin";
 import { getAllClients } from "@/service/client";
+import Vue from "vue";
 export default {
   name: "TableView",
   props: {
@@ -203,14 +233,23 @@ export default {
       type: Array,
       required: true,
     },
+    updateTickets: {
+      type: Function,
+      default: () => {},
+    },
   },
   data() {
     return {
+      loading: false,
+      error: null,
       allClients: [],
       allAgents: [],
       clientEmail: "",
       agentEmail: "",
     };
+  },
+  components: {
+    LoadingIcon,
   },
   computed: {
     isAdmin() {
@@ -224,6 +263,27 @@ export default {
     },
   },
   methods: {
+    async deleteCurrentTicket(id, index) {
+      console.log(index);
+      this.loading = true;
+      try {
+        const deletedTicket = await deleteTicket(id);
+        this.$router.go(this.$router.currentRoute);
+        Vue.$toast.open({
+          message: `Ticket '${deletedTicket._id}'  deleted`,
+          type: "success",
+          position: "top-right",
+        });
+      } catch (error) {
+        Vue.$toast.open({
+          message: error.response.data,
+          type: "error",
+          position: "bottom",
+        });
+      } finally {
+        this.loading = false;
+      }
+    },
     filterPriority(priority) {
       this.$emit("priority", priority);
     },
@@ -324,6 +384,9 @@ export default {
   padding-bottom: 12px;
 }
 @media only screen and (min-width: 900px) {
+  .actioncss {
+    width: 262px;
+  }
   .statuscss {
     width: 83px;
   }
