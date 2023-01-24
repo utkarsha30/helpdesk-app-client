@@ -16,8 +16,12 @@ import AgentAddcomment from "@/components/pages/agent/AgentAddcomment.vue";
 import AdminAddcomment from "@/components/pages/admin/AdminAddcomment.vue";
 import AdminTicketUpdate from "@/components/pages/admin/AdminTicketUpdate.vue";
 import AgentTicketUpdate from "@/components/pages/agent/AgentTicketUpdate.vue";
-import AdminAddNewCategory from "@/components/pages/admin/AdminAddNewCategory.vue";
-import AdminCreateFaq from "@/components/pages/admin/AdminCreateFaq.vue";
+import AdminAddNewCategory from "@/components/pages/admin/category/AdminAddNewCategory.vue";
+import AdminCreateFaq from "@/components/pages/admin/faq/AdminCreateFaq.vue";
+import AdminCategoryList from "@/components/pages/admin/category/AdminCategoryList.vue";
+import AdminUpdateCategory from "@/components/pages/admin/category/AdminUpdateCategory.vue";
+import AdminFaqList from "@/components/pages/admin/faq/AdminFaqList.vue";
+import AdminUpdateFaq from "@/components/pages/admin/faq/AdminUpdateFaq.vue";
 const router = new Router({
   mode: "history",
   routes: [
@@ -91,9 +95,33 @@ const router = new Router({
       component: AdminAddNewCategory,
     },
     {
+      name: "admin-category-list",
+      path: "/admin/categories",
+      component: AdminCategoryList,
+    },
+    {
+      name: "admin-category-update",
+      path: "/admin/category/:id",
+      component: AdminUpdateCategory,
+      props: true,
+      query: true,
+    },
+    {
       name: "admin-create-faq",
       path: "/admin/newfaq",
       component: AdminCreateFaq,
+    },
+    {
+      name: "admin-faq-list",
+      path: "/admin/faqs",
+      component: AdminFaqList,
+    },
+    {
+      name: "admin-faq-update",
+      path: "/admin/faq/:id",
+      component: AdminUpdateFaq,
+      props: true,
+      query: true,
     },
     {
       name: "admin-ticket-update",

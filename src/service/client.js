@@ -24,24 +24,12 @@ const postNewClient = async (clientDetails) => {
 const postNewTicket = async (ticketDetails) => {
   const response = await axios.post(`${BASE_URL}/tickets/add`, ticketDetails, {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
     },
   });
   return response.data;
 };
-const postAttachments = async (id, image) => {
-  console.log("type", typeof image);
-  const response = await axios.patch(
-    `${BASE_URL}/tickets/add/${id}/attachments`,
-    image,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
-  return response.data;
-};
+
 const updateTicketDetails = async (id, ticketDetails) => {
   console.log("body", ticketDetails);
   const response = await axios.patch(
@@ -85,7 +73,6 @@ export {
   updateTicketDetails,
   addComment,
   getTicketsCount,
-  postAttachments,
   getAllClients,
   postNewClient,
 };

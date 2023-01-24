@@ -26,14 +26,30 @@
           <b-nav-item v-if="isAdmin && isAuthenticated" href="/admin"
             >Dashboard</b-nav-item
           >
-          <b-nav-item
+          <!-- <b-nav-item
             v-if="isAdmin && isAuthenticated"
             href="/admin/newcategory"
             >New Category</b-nav-item
-          >
-          <b-nav-item v-if="isAdmin && isAuthenticated" href="/admin/newfaq"
+          > -->
+          <b-nav-item-dropdown v-if="isAdmin && isAuthenticated" right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content> Category </template>
+            <b-dropdown-item href="/admin/newcategory"
+              >New Category</b-dropdown-item
+            >
+            <b-dropdown-item href="/admin/categories"
+              >Category List</b-dropdown-item
+            >
+          </b-nav-item-dropdown>
+          <!-- <b-nav-item v-if="isAdmin && isAuthenticated" href="/admin/newfaq"
             >Create FAQ</b-nav-item
-          >
+          > -->
+          <b-nav-item-dropdown v-if="isAdmin && isAuthenticated" right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content> FAQ </template>
+            <b-dropdown-item href="/admin/newfaq">New FAQ</b-dropdown-item>
+            <b-dropdown-item href="/admin/faqs">FAQ List</b-dropdown-item>
+          </b-nav-item-dropdown>
           <b-nav-item v-if="isAgent && isAuthenticated" href="/agent"
             >Dashboard</b-nav-item
           >

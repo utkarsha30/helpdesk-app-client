@@ -21,4 +21,20 @@ const postNewCategory = async (categoryDetails) => {
   );
   return response.data;
 };
-export { getAllCategories, postNewCategory };
+const updateCategory = async (id, categoryDetails) => {
+  const response = await axios.patch(
+    `${BASE_URL}/categories/${id}`,
+    categoryDetails,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+};
+const deleteCategory = async (id) => {
+  const response = await axios.delete(`${BASE_URL}/categories/${id}`);
+  return response.data;
+};
+export { getAllCategories, postNewCategory, deleteCategory, updateCategory };

@@ -3,33 +3,57 @@
     <b-card class="mb-3 extra-css container my-4">
       <b-card-title>Raise new ticket</b-card-title>
       <hr />
-      <b-form @submit.prevent="Submit">
+      <b-form @submit.prevent="onSubmit">
         <b-form-group label-for="ticketCategory" label="Ticket Category">
           <b-form-select
             class="mr-3"
             id="ticketCategory"
-            v-model="selectedCategory"
+            v-model="$v.selectedCategory.$model"
+            :class="{
+              error: $v.selectedCategory.$error,
+              valid: !$v.selectedCategory.$invalid,
+            }"
           >
             <option selected value="">Select Category</option>
             <option v-for="category in categories" :key="category._id">
               {{ category.name }}
             </option>
           </b-form-select>
+          <transition name="bounce">
+            <div v-if="$v.selectedCategory.$error" class="errorMessage">
+              <p v-if="!$v.selectedCategory.required">Category is Required !</p>
+            </div>
+          </transition>
         </b-form-group>
         <b-form-group label-for="ticketTitle" label="Ticket Title">
           <b-form-input
             id="ticketTitle"
             placeholder="Enter title"
-            v-model="title"
+            v-model="$v.title.$model"
+            :class="{ error: $v.title.$error, valid: !$v.title.$invalid }"
           ></b-form-input>
+          <transition name="bounce">
+            <div v-if="$v.title.$error" class="errorMessage">
+              <p v-if="!$v.title.required">Title is Required !</p>
+            </div>
+          </transition>
         </b-form-group>
         <b-form-group label-for="ticketDescription" label="Ticket Description">
           <b-form-textarea
             id="ticketDescription"
             placeholder="Ticket description..."
-            v-model="description"
+            v-model="$v.description.$model"
+            :class="{
+              error: $v.description.$error,
+              valid: !$v.description.$invalid,
+            }"
             rows="3"
           ></b-form-textarea>
+          <transition name="bounce">
+            <div v-if="$v.description.$error" class="errorMessage">
+              <p v-if="!$v.description.required">Description is Required !</p>
+            </div>
+          </transition>
         </b-form-group>
         <b-form-group label="Attachement" label-for="ticketAttachement">
           <b-input-group>
@@ -87,8 +111,9 @@
 </template>
 
 <script>
+import { required } from "vuelidate/lib/validators";
 import { getAllCategories } from "@/service/categories";
-import { postNewTicket, postAttachments } from "@/service/client";
+import { postNewTicket } from "@/service/client";
 import Vue from "vue";
 export default {
   name: "ClientAddnew",
@@ -102,6 +127,17 @@ export default {
       preview: null,
       image: null,
     };
+  },
+  validations: {
+    title: {
+      required,
+    },
+    description: {
+      required,
+    },
+    selectedCategory: {
+      required,
+    },
   },
   methods: {
     // convert() {
@@ -123,52 +159,42 @@ export default {
       console.log("attachment", this.attachments);
     },
     async Submit() {
-      // console.log(this.title);
-      // console.log(this.selectedCategory);
-      // console.log(this.description);
-      // console.log(this.attachement);
-      // console.log(typeof this.attachement);
-      const ticketDetails = {
-        title: this.title,
-        description: this.description,
-        category: this.selectedCategory,
-        client: this.$store.state.auth.id,
-      };
+      console.log(this.attachments);
+      const formData = new FormData();
+      formData.append("title", this.title);
+      formData.append("description", this.description);
+      formData.append("category", this.selectedCategory);
+      formData.append("client", this.$store.state.auth.id);
+      formData.append("attachments", this.attachments);
       try {
-        const newTicket = await postNewTicket(ticketDetails);
+        const newTicket = await postNewTicket(formData);
         if (newTicket) {
           console.log("newTicket", newTicket);
-          const formData = new FormData();
-          formData.append("attachments", this.attachments);
-          console.log(formData);
-          const image = await postAttachments(newTicket._id, formData);
-          console.log(image);
           Vue.$toast.open({
             message: `Ticket '${newTicket._id}'  was added`,
             type: "success",
             position: "top-right",
           });
-          //   this.teamName = null;
-          //   this.teamShortName = null;
-          //   this.teamDescription = null;
-          //   this.memberList = [];
-          //   this.selectedMember = "";
         } else {
           Vue.$toast.open({
             message: "Unsuccessful add attempt",
             type: "error",
           });
-          //   this.teamName = null;
-          //   this.teamShortName = null;
-          //   this.teamDescription = null;
-          //   this.memberList = [];
-          //   this.selectedMember = "";
         }
       } catch (error) {
         Vue.$toast.open({
           message: error.response.data,
           type: "error",
         });
+      }
+    },
+    onSubmit() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        this.submitStatus = "FAIL";
+      } else {
+        this.submitStatus = "SUCCESS";
+        this.Submit();
       }
     },
   },
@@ -180,6 +206,39 @@ export default {
 </script>
 
 <style >
+/* validations-css */
+form .valid {
+  border: 1.5px solid rgb(55, 161, 14);
+  color: rgb(26, 82, 4);
+}
+form div .error {
+  border: 1.5px solid red;
+  color: rgb(247, 10, 10);
+}
+.errorMessage {
+  transition: visibility 0s, opacity 0.5s linear;
+  color: rgb(233, 64, 22);
+  font-size: 0.8em;
+}
+/* animation for error message */
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.7s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* validations-css */
 .custom-file-label::after {
   color: white;
   background-color: #033b59;

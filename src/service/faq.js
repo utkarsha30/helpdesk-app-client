@@ -14,4 +14,8 @@ const postNewFaq = async (faqDetails) => {
   });
   return response.data;
 };
-export { getAllFaqs, postNewFaq };
+const deleteFaq = async (id) => {
+  const response = await axios.delete(`${BASE_URL}/FAQ/${id}`);
+  return response.data;
+};
+export { getAllFaqs, postNewFaq, deleteFaq };
