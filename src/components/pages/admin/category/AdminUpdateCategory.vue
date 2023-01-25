@@ -42,7 +42,12 @@
           </transition>
         </b-form-group>
         <b-form-group class="text-center">
-          <b-button type="submit" class="button-style">Update</b-button>
+          <b-button
+            type="submit"
+            class="button-style"
+            :disabled="!$v.name.$dirty && !$v.description.$dirty"
+            >Update</b-button
+          >
         </b-form-group>
       </b-form>
     </b-card>
@@ -75,6 +80,7 @@ export default {
       error: null,
       name: this.category.name,
       description: this.category.description,
+      submitStatus: null,
     };
   },
   validations: {
@@ -122,5 +128,49 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.7s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.valid {
+  border: 1.5px solid rgb(55, 161, 14);
+  color: rgb(26, 82, 4);
+}
+form div .error {
+  border: 1.5px solid red;
+  color: rgb(247, 10, 10);
+}
+.errorMessage {
+  transition: visibility 0s, opacity 0.5s linear;
+  color: rgb(233, 64, 22);
+  font-size: 0.8em;
+}
+.extra-css {
+  box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);
+}
+.button-style {
+  background-color: #ed0a71;
+  width: 200px;
+  align-items: center;
+  border: 0;
+}
+
+.btn-secondary:hover {
+  background-color: #ec599b !important;
+  border-color: #f0036e !important;
+}
 </style>
