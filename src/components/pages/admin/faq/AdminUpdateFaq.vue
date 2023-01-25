@@ -4,6 +4,9 @@
     <div class="alert alert-danger" role="alert" v-if="error">
       {{ error.message }}
     </div>
+    <div class="alert alert-danger" role="alert" v-if="!faq">
+      No Faq selected
+    </div>
     <b-card
       v-if="!loading && !error && faq"
       class="mb-3 extra-css container my-4"

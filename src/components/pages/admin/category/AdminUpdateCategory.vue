@@ -4,7 +4,13 @@
     <div class="alert alert-danger" role="alert" v-if="error">
       {{ error.message }}
     </div>
-    <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
+    <div class="alert alert-danger" role="alert" v-if="!category">
+      No Category selected to update
+    </div>
+    <b-card
+      v-if="!loading && !error && category"
+      class="mb-3 extra-css container my-4"
+    >
       <b-card-title>Update Category</b-card-title>
       <hr />
       <b-form @submit.prevent="onSubmit">

@@ -9,21 +9,39 @@
 
       <b-collapse id="nav-collapse" class="ml-3" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item href="/about">About</b-nav-item>
-          <b-nav-item v-if="!isAuthenticated" href="/registration"
+          <b-nav-item to="/" exact exact-active-class="active">Home</b-nav-item>
+          <b-nav-item to="/about" exact exact-active-class="active"
+            >About</b-nav-item
+          >
+          <b-nav-item
+            v-if="!isAuthenticated"
+            to="/registration"
+            exact
+            exact-active-class="active"
             >Registration</b-nav-item
           >
-          <b-nav-item href="/faq">FAQ</b-nav-item>
+          <b-nav-item to="/faq" exact exact-active-class="active"
+            >FAQ</b-nav-item
+          >
           <b-nav-item
             v-if="isClient && isAuthenticated"
-            href="/client/newticket"
+            to="/client/newticket"
+            exact
+            exact-active-class="active"
             >Raise Ticket</b-nav-item
           >
-          <b-nav-item v-if="isClient && isAuthenticated" href="/client"
+          <b-nav-item
+            v-if="isClient && isAuthenticated"
+            to="/client"
+            exact
+            exact-active-class="active"
             >All Tickets</b-nav-item
           >
-          <b-nav-item v-if="isAdmin && isAuthenticated" href="/admin"
+          <b-nav-item
+            v-if="isAdmin && isAuthenticated"
+            to="/admin"
+            exact
+            exact-active-class="active"
             >Dashboard</b-nav-item
           >
           <!-- <b-nav-item
@@ -34,10 +52,16 @@
           <b-nav-item-dropdown v-if="isAdmin && isAuthenticated" right>
             <!-- Using 'button-content' slot -->
             <template #button-content> Category </template>
-            <b-dropdown-item href="/admin/newcategory"
+            <b-dropdown-item
+              to="/admin/newcategory"
+              exact
+              exact-active-class="active"
               >New Category</b-dropdown-item
             >
-            <b-dropdown-item href="/admin/categories"
+            <b-dropdown-item
+              to="/admin/categories"
+              exact
+              exact-active-class="active"
               >Category List</b-dropdown-item
             >
           </b-nav-item-dropdown>
@@ -47,10 +71,21 @@
           <b-nav-item-dropdown v-if="isAdmin && isAuthenticated" right>
             <!-- Using 'button-content' slot -->
             <template #button-content> FAQ </template>
-            <b-dropdown-item href="/admin/newfaq">New FAQ</b-dropdown-item>
-            <b-dropdown-item href="/admin/faqs">FAQ List</b-dropdown-item>
+            <b-dropdown-item
+              to="/admin/newfaq"
+              exact
+              exact-active-class="active"
+              >New FAQ</b-dropdown-item
+            >
+            <b-dropdown-item to="/admin/faqs" exact exact-active-class="active"
+              >FAQ List</b-dropdown-item
+            >
           </b-nav-item-dropdown>
-          <b-nav-item v-if="isAgent && isAuthenticated" href="/agent"
+          <b-nav-item
+            v-if="isAgent && isAuthenticated"
+            to="/agent"
+            exact
+            exact-active-class="active"
             >Dashboard</b-nav-item
           >
         </b-navbar-nav>
@@ -70,8 +105,13 @@
             <template #button-content>
               <em>Login</em>
             </template>
-            <b-dropdown-item href="/clientlogin">Client Login</b-dropdown-item>
-            <b-dropdown-item href="/employeelogin"
+            <b-dropdown-item to="/clientlogin" exact exact-active-class="active"
+              >Client Login</b-dropdown-item
+            >
+            <b-dropdown-item
+              to="/employeelogin"
+              exact
+              exact-active-class="active"
               >Employee Login</b-dropdown-item
             >
           </b-nav-item-dropdown>
@@ -116,6 +156,10 @@ export default {
 </script>
 
 <style scoped>
+.active {
+  color: white;
+}
+
 .text-color {
   color: #ffff;
 }
