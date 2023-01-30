@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-card class="mb-3 extra-css container my-4">
+    <loading-icon v-if="loading"></loading-icon>
+    <div class="alert alert-danger" role="alert" v-if="error">
+      {{ error.message }}
+    </div>
+    <b-card v-if="!loading && !error" class="mb-3 extra-css container my-4">
       <b-card-title>Raise new ticket</b-card-title>
       <hr />
       <b-form @submit.prevent="onSubmit">
@@ -75,37 +79,11 @@
               <p class="mb-0">size: {{ image.size / 1024 }}KB</p>
             </template>
           </div>
-          <!-- <div class="border p-2 mt-3">
-            <p>Preview Here:</p>
-            <template v-if="preview_list.length">
-              <div v-for="(item, index) in preview_list" :key="index">
-                <img :src="item" class="img-fluid w-25" />
-                <p class="mb-0">file name: {{ image_list[index].name }}</p>
-                <p>size: {{ image_list[index].size / 1024 }}KB</p>
-              </div>
-            </template>
-          </div> -->
         </b-form-group>
         <b-form-group class="text-center">
           <b-button type="submit" class="button-style">Submit</b-button>
         </b-form-group>
       </b-form>
-      <!-- <div class="col-md-5">
-        <h5>2. multiple file</h5>
-        <form>
-          <div class="form-group">
-            <label for="my-file">Select Image</label>
-            <input
-              type="file"
-              accept="image/*"
-              multiple="multiple"
-              @change="previewMultiImage"
-              class="form-control-file"
-              id="my-file"
-            />
-          </div>
-        </form>
-      </div> -->
     </b-card>
   </div>
 </template>
@@ -119,6 +97,8 @@ export default {
   name: "ClientAddnew",
   data() {
     return {
+      loading: false,
+      error: null,
       categories: [],
       attachments: null,
       selectedCategory: "",
@@ -159,7 +139,7 @@ export default {
       console.log("attachment", this.attachments);
     },
     async Submit() {
-      console.log(this.attachments);
+      this.loading = true;
       const formData = new FormData();
       formData.append("title", this.title);
       formData.append("description", this.description);
@@ -186,6 +166,8 @@ export default {
           message: error.response.data,
           type: "error",
         });
+      } finally {
+        this.loading = false;
       }
     },
     onSubmit() {

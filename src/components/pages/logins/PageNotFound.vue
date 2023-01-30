@@ -7,12 +7,9 @@
           src="http://salehriaz.com/404Page/img/404.svg"
           width="300px"
         />
-        <a
-          href="http://salehriaz.com/404Page/404.html"
-          class="btn-go-home"
-          target="_blank"
-          >GO BACK HOME</a
-        >
+        <b-form-group target="_blank">
+          <b-button type="submit" to="/">Home Page</b-button>
+        </b-form-group>
       </div>
       <div class="objects">
         <img
@@ -58,6 +55,14 @@ export default {
 </script>
 
 <style scoped>
+.btn-secondary {
+  background-color: #ed0a71 !important;
+  border-color: #f0036e !important;
+}
+.btn-secondary:hover {
+  background-color: #ec599b !important;
+  border-color: #f0036e !important;
+}
 @import url("https://fonts.googleapis.com/css?family=Dosis:300,400,500");
 
 @-moz-keyframes rocket-movement {
@@ -175,36 +180,6 @@ export default {
   background-position: left top;
   height: 100%;
   overflow: hidden;
-}
-
-.btn-go-home {
-  position: relative;
-  z-index: 200;
-  margin: 15px auto;
-  width: 100px;
-  padding: 10px 15px;
-  border: 1px solid #ffcb39;
-  border-radius: 100px;
-  font-weight: 400;
-  display: block;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  letter-spacing: 2px;
-  font-size: 11px;
-
-  -webkit-transition: all 0.3s ease-in;
-  -moz-transition: all 0.3s ease-in;
-  -ms-transition: all 0.3s ease-in;
-  -o-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
-}
-
-.btn-go-home:hover {
-  background-color: #ffcb39;
-  color: #fff;
-  transform: scale(1.05);
-  box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
 }
 
 .central-body {

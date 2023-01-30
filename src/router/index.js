@@ -22,6 +22,11 @@ import AdminCategoryList from "@/components/pages/admin/category/AdminCategoryLi
 import AdminUpdateCategory from "@/components/pages/admin/category/AdminUpdateCategory.vue";
 import AdminFaqList from "@/components/pages/admin/faq/AdminFaqList.vue";
 import AdminUpdateFaq from "@/components/pages/admin/faq/AdminUpdateFaq.vue";
+import store from "@/store";
+const meta = {
+  authorize: ["admin", "agent", "client"],
+};
+
 const router = new Router({
   mode: "history",
   routes: [
@@ -39,6 +44,7 @@ const router = new Router({
       name: "faq-page",
       path: "/faq",
       component: FaqPage,
+      meta,
     },
     {
       name: "about-page",
@@ -59,6 +65,9 @@ const router = new Router({
       name: "client-all-tickets",
       path: "/client",
       component: ClientTickets,
+      meta: {
+        authorize: ["client"],
+      },
     },
     {
       name: "client-ticket-update",
@@ -154,5 +163,23 @@ const router = new Router({
       component: PageNotFound,
     },
   ],
+});
+router.beforeEach((to, from, next) => {
+  const authorize = to.meta.authorize;
+
+  // Right now, role-based authorization is NOT supported
+  if (authorize && !store.getters.isAuthenticated) {
+    return next({
+      name: "page-not-found",
+    });
+  } else {
+    if (authorize && !authorize.includes(store.state.auth.role)) {
+      return next({
+        path: "/",
+      });
+    }
+  }
+
+  next();
 });
 export default router;
