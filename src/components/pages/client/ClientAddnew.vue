@@ -89,12 +89,16 @@
 </template>
 
 <script>
+import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import { required } from "vuelidate/lib/validators";
 import { getAllCategories } from "@/service/categories";
 import { postNewTicket } from "@/service/client";
 import Vue from "vue";
 export default {
   name: "ClientAddnew",
+  components: {
+    LoadingIcon,
+  },
   data() {
     return {
       loading: false,
