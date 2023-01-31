@@ -85,11 +85,24 @@ export default {
       };
       try {
         const newCategory = await postNewCategory(details);
-        Vue.$toast.open({
-          message: `New Category '${newCategory.name}'  was added !`,
-          type: "success",
-          position: "bottom",
-        });
+        if (newCategory) {
+          this.name = null;
+          this.description = null;
+          this.$nextTick(() => {
+            this.$v.$reset();
+          });
+          Vue.$toast.open({
+            message: `New Category '${newCategory.name}'  was added !`,
+            type: "success",
+            position: "bottom",
+          });
+        } else {
+          Vue.$toast.open({
+            message: "Unsuccessful attempt to add new Category",
+            type: "error",
+            position: "bottom",
+          });
+        }
       } catch (error) {
         Vue.$toast.open({
           message: error.response.data,

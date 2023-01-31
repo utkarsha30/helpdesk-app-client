@@ -78,11 +78,24 @@ export default {
       };
       try {
         const newFaq = await postNewFaq(details);
-        Vue.$toast.open({
-          message: `New FAQ '${newFaq._id}'  was added !`,
-          type: "success",
-          position: "bottom",
-        });
+        if (newFaq) {
+          this.question = null;
+          this.answer = null;
+          this.$nextTick(() => {
+            this.$v.$reset();
+          });
+          Vue.$toast.open({
+            message: `New FAQ '${newFaq._id}'  was added !`,
+            type: "success",
+            position: "bottom",
+          });
+        } else {
+          Vue.$toast.open({
+            message: "Unsuccessful attempt to add new FAQ",
+            type: "error",
+            position: "bottom",
+          });
+        }
       } catch (error) {
         Vue.$toast.open({
           message: error.response.data,

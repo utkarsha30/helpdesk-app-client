@@ -20,7 +20,11 @@
             exact-active-class="active"
             >Registration</b-nav-item
           >
-          <b-nav-item to="/faq" exact exact-active-class="active"
+          <b-nav-item
+            to="/faq"
+            exact
+            exact-active-class="active"
+            v-if="!isAdmin"
             >FAQ</b-nav-item
           >
           <b-nav-item

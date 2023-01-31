@@ -124,11 +124,6 @@ export default {
     },
   },
   methods: {
-    // convert() {
-    //   console.log(this.attachement);
-    //   this.val = JSON.stringify(this.attachement);
-    //   console.log(this.val);
-    // },
     previewImage: function (event) {
       var input = event.target;
       if (input.files) {
@@ -153,7 +148,16 @@ export default {
       try {
         const newTicket = await postNewTicket(formData);
         if (newTicket) {
-          console.log("newTicket", newTicket);
+          // This will reset all the fields and validations
+          this.attachments = null;
+          this.selectedCategory = "";
+          this.title = null;
+          this.description = null;
+          this.preview = null;
+          this.image = null;
+          this.$nextTick(() => {
+            this.$v.$reset();
+          });
           Vue.$toast.open({
             message: `Ticket '${newTicket._id}'  was added`,
             type: "success",
@@ -161,7 +165,7 @@ export default {
           });
         } else {
           Vue.$toast.open({
-            message: "Unsuccessful add attempt",
+            message: "Unsuccessful attempt to create new ticket",
             type: "error",
           });
         }

@@ -25,7 +25,6 @@
               {{ this.ticket.category }}
             </option> -->
             <option selected value="">Select Category</option>
-            <option selected value="">Select Category</option>
             <option v-for="category in categories" :key="category._id">
               {{ category.name }}
             </option>
@@ -173,7 +172,44 @@
           </div>
         </b-form-group>
         <b-form-group class="text-center">
-          <b-button type="submit" class="button-style">Submit</b-button>
+          <b-button
+            v-if="isAdmin"
+            type="submit"
+            class="button-style"
+            :disabled="
+              !$v.title.$dirty &&
+              !$v.description.$dirty &&
+              !$v.selectedCategory.$dirty &&
+              !$v.selectedAgent.$dirty &&
+              !$v.status.$dirty &&
+              !$v.priority.$dirty
+            "
+            >Submit</b-button
+          >
+          <b-button
+            v-if="isAgent"
+            type="submit"
+            class="button-style"
+            :disabled="
+              !$v.title.$dirty &&
+              !$v.description.$dirty &&
+              !$v.selectedCategory.$dirty &&
+              !$v.status.$dirty &&
+              !$v.priority.$dirty
+            "
+            >Submit</b-button
+          >
+          <b-button
+            v-if="isClient"
+            type="submit"
+            class="button-style"
+            :disabled="
+              !$v.title.$dirty &&
+              !$v.description.$dirty &&
+              !$v.selectedCategory.$dirty
+            "
+            >Submit</b-button
+          >
         </b-form-group>
       </b-form>
     </b-card>
@@ -412,6 +448,10 @@ export default {
 </script>
 
 <style scoped>
+.disabled {
+  pointer-events: none;
+  opacity: 0.65;
+}
 form .valid {
   border: 1.5px solid rgb(55, 161, 14);
   color: rgb(26, 82, 4);

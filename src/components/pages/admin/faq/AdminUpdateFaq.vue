@@ -127,6 +127,10 @@ export default {
 </script>
 
 <style scoped>
+.disabled {
+  pointer-events: none;
+  opacity: 0.65;
+}
 .bounce-enter-active {
   animation: bounce-in 0.5s;
 }
