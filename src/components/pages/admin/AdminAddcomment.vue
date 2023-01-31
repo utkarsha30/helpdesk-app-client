@@ -59,9 +59,10 @@
              </b-card-body>
              <hr class="m-2"/>
              <b-list-group flush>
-               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">ticket Title</b-card-sub-title> {{ ticket.title }}</b-list-group-item>
-               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">ticket Description</b-card-sub-title> {{ ticket.description }}</b-list-group-item>
-               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">Agent Assigned</b-card-sub-title> {{ ticket.agent }}</b-list-group-item>
+               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">Ticket Title</b-card-sub-title> {{ ticket.title }}</b-list-group-item>
+               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">Ticket Description</b-card-sub-title> {{ ticket.description }}</b-list-group-item>
+               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">Tickect By</b-card-sub-title> {{ ticket.client.name }}</b-list-group-item>
+               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">Agent Assigned</b-card-sub-title> <span v-text="getAgent(ticket.agent)"></span></b-list-group-item>
              </b-list-group>
          </b-card>
          <b-card header="Attachement" class="text-center extra-css">
@@ -105,6 +106,13 @@ export default {
     };
   },
   methods: {
+    getAgent(agent) {
+      if (agent) {
+        return agent.name;
+      } else {
+        return "Agent not assigend";
+      }
+    },
     async AddComment() {
       const commentDetails = {
         comments: [
@@ -138,6 +146,7 @@ export default {
         });
       } finally {
         this.loading = false;
+        this.newComment = "";
       }
     },
   },
@@ -161,6 +170,11 @@ export default {
 .btn-secondary {
   color: white;
   background-color: #033b59;
+}
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #066091 !important;
+  border-color: #032c42 !important;
 }
 .card-header {
   background-image: linear-gradient(to bottom right, #d4ece5, #f8edf5);

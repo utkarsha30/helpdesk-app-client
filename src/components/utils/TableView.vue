@@ -39,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(ticket, index) in tickets" :key="ticket._id">
+        <tr v-for="ticket in tickets" :key="ticket._id">
           <td data-title="Ticket Id">{{ ticket._id }}</td>
           <td data-title="Title">{{ ticket.title }}</td>
           <td data-title="Status">
@@ -67,12 +67,22 @@
           </td>
           <td
             data-title="Agent"
-            v-if="isClient || isAdmin"
-            v-text="getAgent(ticket.agent)"
+            v-if="isAdmin"
+            v-text="checkAgent(ticket.agent)"
           ></td>
           <td
+            data-title="Agent"
+            id="clientAgent"
+            v-if="isClient"
+            v-text="getAgent(ticket.agent)"
+          ></td>
+
+          <td data-title="Client" v-if="isAdmin">
+            {{ ticket.client.name }}
+          </td>
+          <td
             data-title="Client"
-            v-if="isAgent || isAdmin"
+            v-if="isAgent"
             v-text="getClient(ticket.client)"
           ></td>
           <!-- admin -->
@@ -119,7 +129,7 @@
               class="m-2"
               v-b-tooltip.hover
               title="Delete Ticket"
-              @click="deleteCurrentTicket(ticket._id, index)"
+              @click="deleteCurrentTicket(ticket._id)"
             >
               <b-icon icon="trash-fill " aria-hidden="true"></b-icon>
             </b-button>
@@ -209,7 +219,7 @@
               class="m-2"
               v-b-tooltip.hover
               title="Delete Ticket"
-              @click="deleteCurrentTicket(ticket._id, index)"
+              @click="deleteCurrentTicket(ticket._id)"
             >
               <b-icon icon="trash-fill " aria-hidden="true"></b-icon>
             </b-button>
@@ -245,7 +255,8 @@ export default {
       allClients: [],
       allAgents: [],
       clientEmail: "",
-      agentEmail: "",
+      agentName: "",
+      agentEmail: null,
     };
   },
   components: {
@@ -263,8 +274,7 @@ export default {
     },
   },
   methods: {
-    async deleteCurrentTicket(id, index) {
-      console.log(index);
+    async deleteCurrentTicket(id) {
       this.loading = true;
       try {
         const deletedTicket = await deleteTicket(id);
@@ -287,6 +297,13 @@ export default {
     filterPriority(priority) {
       this.$emit("priority", priority);
     },
+    checkAgent(agent) {
+      if (!agent) {
+        return "Agent not Assigned";
+      } else {
+        return agent.name;
+      }
+    },
     getClient(clientId) {
       if (clientId) {
         let requiredClient = this.allClients.filter(
@@ -302,12 +319,14 @@ export default {
         return "";
       }
     },
+
     getAgent(agentId) {
       if (agentId) {
         let result = this.allAgents.filter((agent) => agent._id === agentId);
         if (result.length !== 0) {
+          this.agentName = result[0].name;
           this.agentEmail = result[0].email;
-          return this.agentEmail;
+          return this.agentName;
         } else {
           return "Agent not assigned";
         }

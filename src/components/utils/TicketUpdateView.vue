@@ -74,14 +74,17 @@
             </div>
           </transition>
         </b-form-group>
-        <b-form-group
-          v-if="isAgent || isAdmin"
-          label-for="ticketClient"
-          label="Client"
-        >
+        <b-form-group v-if="isAdmin" label-for="ticketClient" label="Client">
           <b-form-input
             id="ticketClient"
             v-model="client"
+            disabled
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group v-if="isAgent" label-for="ticketClient" label="Client">
+          <b-form-input
+            id="ticketClient"
+            v-model="selectedClient"
             disabled
           ></b-form-input>
         </b-form-group>
@@ -179,7 +182,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import { updateTicketDetails } from "@/service/client";
+import { updateTicketDetails, getAllClients } from "@/service/client";
 import { getAllAgents } from "@/service/admin";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import Vue from "vue";
@@ -210,9 +213,11 @@ export default {
       selectedCategory: this.ticket.category || "",
       title: this.ticket.title,
       description: this.ticket.description,
-      client: this.ticket.client,
+      client: this.ticket.client.name,
       selectedAgent: "",
       agents: [],
+      selectedClient: "",
+      clients: [],
       preview: this.ticket.attachments,
       image: null,
       status: this.ticket.status,
@@ -335,7 +340,6 @@ export default {
         formData.append("status", this.status);
         formData.append("priority", this.priority);
       } else if (this.isClient) {
-        console.log("Client");
         formData.append("category", this.selectedCategory);
         formData.append("title", this.title);
         formData.append("description", this.description);
@@ -375,12 +379,19 @@ export default {
     },
   },
   async mounted() {
+    if (this.isAgent) {
+      this.clients = await getAllClients();
+      const result = this.clients.filter(
+        (client) => client._id === this.ticket.client
+      );
+      this.selectedClient = result[0].name;
+    }
     if (this.isAdmin) {
       const allAgents = await getAllAgents();
       this.agents = allAgents;
       if (this.ticket.agent) {
         const result = allAgents.filter(
-          (agent) => agent._id === this.ticket.agent
+          (agent) => agent._id === this.ticket.agent._id
         );
         this.selectedAgent = result[0].email;
       }
@@ -393,7 +404,7 @@ export default {
         const result = allAgents.filter(
           (agent) => agent._id === this.ticket.agent
         );
-        this.selectedAgent = result[0].email;
+        this.selectedAgent = result[0].name;
       }
     }
   },

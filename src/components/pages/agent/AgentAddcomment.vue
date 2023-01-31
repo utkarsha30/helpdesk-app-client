@@ -61,7 +61,7 @@
             <b-list-group flush>
               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">ticket Title</b-card-sub-title> {{ ticket.title }}</b-list-group-item>
               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">ticket Description</b-card-sub-title> {{ ticket.description }}</b-list-group-item>
-              <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">Agent Assigned</b-card-sub-title> {{ ticket.agent }}</b-list-group-item>
+              <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">Ticket By</b-card-sub-title> <span v-text="getClient(ticket.client)"></span></b-list-group-item>
             </b-list-group>
         </b-card>
         <b-card header="Attachement" class="text-center extra-css">
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { addComment } from "@/service/client";
+import { addComment, getAllClients } from "@/service/client";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import Vue from "vue";
 export default {
@@ -102,9 +102,26 @@ export default {
       name: "",
       loading: false,
       error: null,
+      allClients: [],
+      clientName: "",
     };
   },
   methods: {
+    getClient(clientId) {
+      if (clientId) {
+        let requiredClient = this.allClients.filter(
+          (client) => client._id === clientId
+        );
+        if (requiredClient.length !== 0) {
+          this.clientName = requiredClient[0].name;
+          return this.clientName;
+        } else {
+          return "";
+        }
+      } else {
+        return "";
+      }
+    },
     async AddComment() {
       const commentDetails = {
         comments: [
@@ -138,8 +155,12 @@ export default {
         });
       } finally {
         this.loading = false;
+        this.newComment = "";
       }
     },
+  },
+  async mounted() {
+    this.allClients = await getAllClients();
   },
 };
 </script>
@@ -161,6 +182,11 @@ export default {
 .btn-secondary {
   color: white;
   background-color: #033b59;
+}
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #066091 !important;
+  border-color: #032c42 !important;
 }
 .card-header {
   background-image: linear-gradient(to bottom right, #d4ece5, #f8edf5);

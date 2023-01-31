@@ -61,7 +61,7 @@
             <b-list-group flush>
               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">ticket Title</b-card-sub-title> {{ ticket.title }}</b-list-group-item>
               <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">ticket Description</b-card-sub-title> {{ ticket.description }}</b-list-group-item>
-              <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">Agent Assigned</b-card-sub-title> {{ ticket.agent }}</b-list-group-item>
+              <b-list-group-item class="text-left"><b-card-sub-title class="mb-2">Agent Assigned</b-card-sub-title> {{ agentName }}</b-list-group-item>
             </b-list-group>
         </b-card>
         <b-card header="Attachement" class="text-center extra-css">
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { getAllAgents } from "@/service/admin";
 import { addComment } from "@/service/client";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import Vue from "vue";
@@ -102,6 +103,8 @@ export default {
       name: "",
       loading: false,
       error: null,
+      allAgents: [],
+      agentName: "Agent not assigned",
     };
   },
   methods: {
@@ -138,8 +141,18 @@ export default {
         });
       } finally {
         this.loading = false;
+        this.newComment = "";
       }
     },
+  },
+  async mounted() {
+    this.allAgents = await getAllAgents();
+    if (this.ticket.agent) {
+      const result = this.allAgents.filter(
+        (agent) => agent._id === this.ticket.agent
+      );
+      this.agentName = result[0].name;
+    }
   },
 };
 </script>
@@ -161,6 +174,11 @@ export default {
 .btn-secondary {
   color: white;
   background-color: #033b59;
+}
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #066091 !important;
+  border-color: #032c42 !important;
 }
 .card-header {
   background-image: linear-gradient(to bottom right, #d4ece5, #f8edf5);
