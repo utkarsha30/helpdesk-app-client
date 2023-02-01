@@ -57,7 +57,6 @@
 import { required } from "vuelidate/lib/validators";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import { updateFaq } from "@/service/faq";
-import Vue from "vue";
 export default {
   name: "AdminUpdateFaq",
   components: {
@@ -100,15 +99,22 @@ export default {
 
       try {
         await updateFaq(this.id, faqDetails);
-        Vue.$toast.open({
-          message: `FAQ  was updated`,
-          type: "success",
-          position: "top-right",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "success",
+          title: `FAQ  was updated`,
         });
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "error",
+          title: error.response.data,
         });
       } finally {
         this.loading = false;

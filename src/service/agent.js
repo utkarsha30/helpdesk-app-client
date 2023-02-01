@@ -8,7 +8,6 @@ const getEmployeeAllTicktes = async (employeeId) => {
       "Content-Type": "application/json",
     },
   });
-  console.log("after service");
   return response.data;
 };
 const getAgentTicketsCount = async (employeeId) => {

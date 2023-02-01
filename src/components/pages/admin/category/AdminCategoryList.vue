@@ -52,7 +52,7 @@
                 class="m-2"
                 v-b-tooltip.hover
                 title="Delete Ticket"
-                @click="deleteCurrentCategory(category._id, index)"
+                @click="deleteOption(category._id, index)"
               >
                 <b-icon icon="trash-fill " aria-hidden="true"></b-icon>
               </b-button>
@@ -66,7 +66,6 @@
 
 <script>
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
-import Vue from "vue";
 import { deleteCategory } from "@/service/categories";
 import { getAllCategories } from "@/service/categories";
 export default {
@@ -84,6 +83,21 @@ export default {
   },
 
   methods: {
+    deleteOption(id, index) {
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteCurrentCategory(id, index);
+        }
+      });
+    },
     async deleteCurrentCategory(id, index) {
       this.loading = true;
       try {
@@ -91,23 +105,29 @@ export default {
         if (deletedCategory) {
           this.temp = index + 1;
           this.categories.splice(index, 1);
-          Vue.$toast.open({
-            message: `Category '${this.temp}'  deleted`,
-            type: "success",
-            position: "top-right",
-          });
+          this.$swal(
+            "Deleted!",
+            `Category '${this.temp} has been deleted.`,
+            "success"
+          );
         } else {
-          Vue.$toast.open({
-            message: "OOps Error Occured",
-            type: "error",
-            position: "bottom",
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "error",
+            title: "Unsuccessful attempt to delete Category",
           });
         }
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
-          position: "bottom",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "error",
+          title: error.response.data,
         });
       } finally {
         this.loading = false;

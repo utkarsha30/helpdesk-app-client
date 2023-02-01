@@ -46,7 +46,6 @@
 import { required } from "vuelidate/lib/validators";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import { postNewFaq } from "@/service/faq";
-import Vue from "vue";
 export default {
   name: "AdminCreateFaq",
   components: {
@@ -84,23 +83,32 @@ export default {
           this.$nextTick(() => {
             this.$v.$reset();
           });
-          Vue.$toast.open({
-            message: `New FAQ '${newFaq._id}'  was added !`,
-            type: "success",
-            position: "bottom",
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "success",
+            title: `New FAQ '${newFaq._id}' was added`,
           });
         } else {
-          Vue.$toast.open({
-            message: "Unsuccessful attempt to add new FAQ",
-            type: "error",
-            position: "bottom",
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "error",
+            title: "Unsuccessful attempt to add new FAQ",
           });
         }
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
-          position: "bottom",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "error",
+          title: error.response.data,
         });
       } finally {
         this.loading = false;

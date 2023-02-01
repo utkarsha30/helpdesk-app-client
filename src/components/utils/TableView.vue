@@ -129,7 +129,7 @@
               class="m-2"
               v-b-tooltip.hover
               title="Delete Ticket"
-              @click="deleteCurrentTicket(ticket._id)"
+              @click="deleteOption(ticket._id)"
             >
               <b-icon icon="trash-fill " aria-hidden="true"></b-icon>
             </b-button>
@@ -219,7 +219,7 @@
               class="m-2"
               v-b-tooltip.hover
               title="Delete Ticket"
-              @click="deleteCurrentTicket(ticket._id)"
+              @click="deleteOption(ticket._id)"
             >
               <b-icon icon="trash-fill " aria-hidden="true"></b-icon>
             </b-button>
@@ -235,7 +235,6 @@ import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import { deleteTicket } from "@/service/agent";
 import { getAllAgents } from "@/service/admin";
 import { getAllClients } from "@/service/client";
-import Vue from "vue";
 export default {
   name: "TableView",
   props: {
@@ -257,6 +256,7 @@ export default {
       clientEmail: "",
       agentName: "",
       agentEmail: null,
+      temp: null,
     };
   },
   components: {
@@ -274,21 +274,39 @@ export default {
     },
   },
   methods: {
+    deleteOption(id) {
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteCurrentTicket(id);
+        }
+      });
+    },
     async deleteCurrentTicket(id) {
       this.loading = true;
       try {
         const deletedTicket = await deleteTicket(id);
+        this.$swal(
+          "Deleted!",
+          `Ticket '${deletedTicket._id}'  deleted`,
+          "success"
+        );
         this.$router.go(this.$router.currentRoute);
-        Vue.$toast.open({
-          message: `Ticket '${deletedTicket._id}'  deleted`,
-          type: "success",
-          position: "top-right",
-        });
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
-          position: "bottom",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "error",
+          title: error.response.data,
         });
       } finally {
         this.loading = false;

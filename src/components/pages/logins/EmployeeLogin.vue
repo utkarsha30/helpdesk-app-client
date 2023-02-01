@@ -109,7 +109,6 @@ import {
   emailValidation,
 } from "@/service/patternValidation";
 import { required, email, minLength } from "vuelidate/lib/validators";
-import Vue from "vue";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 export default {
   name: "EmployeeLogin",
@@ -153,13 +152,16 @@ export default {
       };
       this.loading = true;
       try {
-        const login = await this.$store.dispatch("employeeLogin", loginDetails);
-        console.log("login", login);
-        Vue.$toast.open({
-          message: `Welcome ${this.$store.state.auth.name}`,
-          type: "success",
-          position: "bottom",
+        await this.$store.dispatch("employeeLogin", loginDetails);
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "success",
+          title: `Welcome ${this.$store.state.auth.name}`,
         });
+
         if (this.isAdmin) {
           console.log("admin");
           this.$router.push("/admin");
@@ -167,10 +169,13 @@ export default {
           this.$router.push("/agent");
         }
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
-          position: "bottom",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "error",
+          title: error.response.data,
         });
       } finally {
         this.loading = false;

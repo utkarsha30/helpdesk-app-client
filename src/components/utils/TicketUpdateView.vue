@@ -221,7 +221,6 @@ import { required } from "vuelidate/lib/validators";
 import { updateTicketDetails, getAllClients } from "@/service/client";
 import { getAllAgents } from "@/service/admin";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
-import Vue from "vue";
 export default {
   name: "TicketUpdateView",
   components: {
@@ -384,21 +383,32 @@ export default {
       try {
         const updatedTicket = await updateTicketDetails(this.id, formData);
         if (updatedTicket) {
-          Vue.$toast.open({
-            message: `Ticket '${updatedTicket._id}'  was updated`,
-            type: "success",
-            position: "top-right",
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "success",
+            title: `Ticket '${updatedTicket._id}' was updated`,
           });
         } else {
-          Vue.$toast.open({
-            message: "Unsuccessful add attempt",
-            type: "error",
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "error",
+            title: "Unsuccessful attempt to update ticket",
           });
         }
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "error",
+          title: error.response.data,
         });
       } finally {
         this.loading = false;

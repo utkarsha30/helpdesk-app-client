@@ -93,7 +93,6 @@ import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import { required } from "vuelidate/lib/validators";
 import { getAllCategories } from "@/service/categories";
 import { postNewTicket } from "@/service/client";
-import Vue from "vue";
 export default {
   name: "ClientAddnew",
   components: {
@@ -158,21 +157,32 @@ export default {
           this.$nextTick(() => {
             this.$v.$reset();
           });
-          Vue.$toast.open({
-            message: `Ticket '${newTicket._id}'  was added`,
-            type: "success",
-            position: "top-right",
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "success",
+            title: `Ticket '${newTicket._id}'  was added`,
           });
         } else {
-          Vue.$toast.open({
-            message: "Unsuccessful attempt to create new ticket",
-            type: "error",
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "error",
+            title: "Unsuccessful attempt to create new ticket",
           });
         }
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "error",
+          title: error.response.data,
         });
       } finally {
         this.loading = false;

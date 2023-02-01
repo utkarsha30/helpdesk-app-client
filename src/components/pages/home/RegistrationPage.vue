@@ -152,7 +152,6 @@ import {
 } from "@/service/patternValidation";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
-import Vue from "vue";
 import { postNewClient } from "@/service/client";
 // import { getAllClients } from "@/service/client";
 export default {
@@ -213,16 +212,37 @@ export default {
       };
       try {
         const newClient = await postNewClient(clientDetails);
-        Vue.$toast.open({
-          message: `Wohoo! New account created for ${newClient.name} `,
-          type: "success",
-          position: "bottom",
-        });
+        if (newClient) {
+          this.$swal({
+            icon: "success",
+            title: "🎉",
+            text: `Wohoo! New account created for ${newClient.name} `,
+          });
+          this.name = null;
+          this.email = null;
+          this.password = "";
+          this.confirmPassword = null;
+          this.$nextTick(() => {
+            this.$v.$reset();
+          });
+        } else {
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "error",
+            title: "Unsuccessful attempt to register",
+          });
+        }
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
-          position: "bottom",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "error",
+          title: error.response.data,
         });
       } finally {
         this.loading = false;

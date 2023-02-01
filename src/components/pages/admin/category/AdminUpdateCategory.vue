@@ -64,7 +64,7 @@
 import { updateCategory } from "@/service/categories";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
 import { required } from "vuelidate/lib/validators";
-import Vue from "vue";
+
 export default {
   name: "AdminUpdateCategory",
   props: {
@@ -98,6 +98,26 @@ export default {
     },
   },
   methods: {
+    successfulUpdate(name) {
+      this.$swal({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        icon: "success",
+        title: `Category '${name}'  was updated`,
+      });
+    },
+    unsuccessfulUpdate(error) {
+      this.$swal({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        icon: "error",
+        title: error.response.data,
+      });
+    },
     async Submit() {
       this.loading = true;
       const categoryDetails = {
@@ -107,16 +127,9 @@ export default {
 
       try {
         const updatedCategory = await updateCategory(this.id, categoryDetails);
-        Vue.$toast.open({
-          message: `Category '${updatedCategory.name}'  was updated`,
-          type: "success",
-          position: "top-right",
-        });
+        this.successfulUpdate(updatedCategory.name);
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
-        });
+        this.unsuccessfulUpdate(error);
       } finally {
         this.loading = false;
       }

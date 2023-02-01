@@ -80,7 +80,6 @@
 import { getAllAgents } from "@/service/admin";
 import { addComment } from "@/service/client";
 import LoadingIcon from "@/components/pages/LoadingIcon.vue";
-import Vue from "vue";
 export default {
   name: "ClientAddcomment",
   components: {
@@ -122,22 +121,33 @@ export default {
       try {
         const newComment = await addComment(this.id, commentDetails);
         if (newComment) {
-          Vue.$toast.open({
-            message: `Comment was added`,
-            type: "success",
-            position: "top-right",
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "success",
+            title: `Comment was added`,
           });
           this.comments.push(newVal);
         } else {
-          Vue.$toast.open({
-            message: "Unsuccessful add attempt",
-            type: "error",
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            icon: "error",
+            title: "Unsuccessful add attempt",
           });
         }
       } catch (error) {
-        Vue.$toast.open({
-          message: error.response.data,
-          type: "error",
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          icon: "error",
+          title: error.response.data,
         });
       } finally {
         this.loading = false;
