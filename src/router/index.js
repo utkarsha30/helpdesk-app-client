@@ -23,9 +23,9 @@ import AdminUpdateCategory from "@/components/pages/admin/category/AdminUpdateCa
 import AdminFaqList from "@/components/pages/admin/faq/AdminFaqList.vue";
 import AdminUpdateFaq from "@/components/pages/admin/faq/AdminUpdateFaq.vue";
 import store from "@/store";
-const meta = {
-  authorize: ["admin", "agent", "client"],
-};
+// const meta = {
+//   authorize: ["admin", "agent", "client"],
+// };
 
 const router = new Router({
   mode: "history",
@@ -44,7 +44,6 @@ const router = new Router({
       name: "faq-page",
       path: "/faq",
       component: FaqPage,
-      meta,
     },
     {
       name: "about-page",
@@ -60,6 +59,9 @@ const router = new Router({
       name: "client-addnew-ticket",
       path: "/client/newticket",
       component: ClientAddnew,
+      meta: {
+        authorize: ["client"],
+      },
     },
     {
       name: "client-all-tickets",
@@ -75,12 +77,18 @@ const router = new Router({
       component: ClientTicketUpdate,
       props: true,
       query: true,
+      meta: {
+        authorize: ["client"],
+      },
     },
     {
       name: "client-add-comment",
       path: "/client/ticket/comment/:id",
       component: ClientAddcomment,
       props: true,
+      meta: {
+        authorize: ["client"],
+      },
     },
     {
       name: "employee-login",
@@ -91,22 +99,34 @@ const router = new Router({
       name: "admin-all-tickets-view",
       path: "/admin",
       component: AdminAllTickets,
+      meta: {
+        authorize: ["admin"],
+      },
     },
     {
       name: "admin-add-comment",
       path: "/admin/ticket/comment/:id",
       component: AdminAddcomment,
       props: true,
+      meta: {
+        authorize: ["admin"],
+      },
     },
     {
       name: "admin-addnew-category",
       path: "/admin/newcategory",
       component: AdminAddNewCategory,
+      meta: {
+        authorize: ["admin"],
+      },
     },
     {
       name: "admin-category-list",
       path: "/admin/categories",
       component: AdminCategoryList,
+      meta: {
+        authorize: ["admin"],
+      },
     },
     {
       name: "admin-category-update",
@@ -114,16 +134,25 @@ const router = new Router({
       component: AdminUpdateCategory,
       props: true,
       query: true,
+      meta: {
+        authorize: ["admin"],
+      },
     },
     {
       name: "admin-create-faq",
       path: "/admin/newfaq",
       component: AdminCreateFaq,
+      meta: {
+        authorize: ["admin"],
+      },
     },
     {
       name: "admin-faq-list",
       path: "/admin/faqs",
       component: AdminFaqList,
+      meta: {
+        authorize: ["admin"],
+      },
     },
     {
       name: "admin-faq-update",
@@ -131,6 +160,9 @@ const router = new Router({
       component: AdminUpdateFaq,
       props: true,
       query: true,
+      meta: {
+        authorize: ["admin"],
+      },
     },
     {
       name: "admin-ticket-update",
@@ -138,17 +170,26 @@ const router = new Router({
       component: AdminTicketUpdate,
       props: true,
       query: true,
+      meta: {
+        authorize: ["admin"],
+      },
     },
     {
       name: "agent-all-tickets-view",
       path: "/agent",
       component: AgentAllTickets,
+      meta: {
+        authorize: ["agent"],
+      },
     },
     {
       name: "agent-add-comment",
       path: "/agent/ticket/comment/:id",
       component: AgentAddcomment,
       props: true,
+      meta: {
+        authorize: ["agent"],
+      },
     },
     {
       name: "agent-ticket-update",
@@ -156,6 +197,9 @@ const router = new Router({
       component: AgentTicketUpdate,
       props: true,
       query: true,
+      meta: {
+        authorize: ["agent"],
+      },
     },
     {
       name: "page-not-found",
