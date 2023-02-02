@@ -84,13 +84,13 @@
     </b-card>
     <div v-if="!loading" class="text-muted container my-5">
       <div>
-        <small><strong>NOTE</strong></small>
+        <small><strong>NOTE (DEMO ACCOUNTS)</strong></small>
       </div>
       <div>
-        <small>Admin Email : Ukshirsagar@fynd.com</small>
+        <small>Admin Email : shirley.chopra306@gmail.com</small>
       </div>
       <div>
-        <small>Admin Password : AdminAccess@23</small>
+        <small>Admin Password : AgentAccess@123</small>
       </div>
       <hr />
       <div>
