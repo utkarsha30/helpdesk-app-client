@@ -134,7 +134,6 @@ export default {
         reader.readAsDataURL(input.files[0]);
       }
       this.attachments = event.target.files[0];
-      console.log("attachment", this.attachments);
     },
     async Submit() {
       this.loading = true;

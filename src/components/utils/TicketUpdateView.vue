@@ -366,7 +366,6 @@ export default {
           (agent) => agent.email === this.selectedAgent
         );
         const agentId = result[0]._id;
-        console.log(agentId);
         this.selectedAgent = result[0].email;
         formData.append("title", this.title);
         formData.append("description", this.description);
@@ -443,7 +442,6 @@ export default {
       }
     }
     if (this.isClient) {
-      console.log(this.ticket.category);
       const allAgents = await getAllAgents();
       this.agents = allAgents;
       if (this.ticket.agent) {

@@ -31,7 +31,6 @@ const postNewTicket = async (ticketDetails) => {
 };
 
 const updateTicketDetails = async (id, ticketDetails) => {
-  console.log("body", ticketDetails);
   const response = await axios.patch(
     `${BASE_URL}/tickets/${id}`,
     ticketDetails,

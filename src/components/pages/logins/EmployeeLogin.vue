@@ -163,7 +163,6 @@ export default {
         });
 
         if (this.isAdmin) {
-          console.log("admin");
           this.$router.push("/admin");
         } else if (this.$store.state.auth.role === "agent") {
           this.$router.push("/agent");
