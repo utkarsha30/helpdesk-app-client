@@ -126,7 +126,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 export default {
   name: "AppMenu",
   computed: {
@@ -149,10 +148,13 @@ export default {
     logOut() {
       this.$store.dispatch("clientLogout");
       this.$router.push("/");
-      Vue.$toast.open({
-        message: `Successfully LoggedOut !!`,
-        type: "success",
-        position: "bottom",
+      this.$swal({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        icon: "success",
+        title: `Successfully LoggedOut !!`,
       });
     },
   },
