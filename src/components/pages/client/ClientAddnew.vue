@@ -164,6 +164,7 @@ export default {
             icon: "success",
             title: `Ticket '${newTicket._id}'  was added`,
           });
+          this.$router.push("/client");
         } else {
           this.$swal({
             toast: true,

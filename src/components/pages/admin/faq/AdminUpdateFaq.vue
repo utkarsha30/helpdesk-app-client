@@ -107,6 +107,7 @@ export default {
           icon: "success",
           title: `FAQ  was updated`,
         });
+        this.$router.push("/admin/faqs");
       } catch (error) {
         this.$swal({
           toast: true,

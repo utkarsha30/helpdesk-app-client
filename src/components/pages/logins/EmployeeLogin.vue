@@ -94,7 +94,7 @@
       </div>
       <hr />
       <div>
-        <small>Agent Email : Advait@fynd.com</small>
+        <small>Agent Email : Advait@gmail.com</small>
       </div>
       <div>
         <small>Admin Password : AgentAccess@123</small>

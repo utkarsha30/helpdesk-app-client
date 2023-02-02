@@ -91,6 +91,7 @@ export default {
             icon: "success",
             title: `New FAQ '${newFaq._id}' was added`,
           });
+          this.$router.push("/admin/faqs");
         } else {
           this.$swal({
             toast: true,

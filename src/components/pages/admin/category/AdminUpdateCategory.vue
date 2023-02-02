@@ -128,6 +128,7 @@ export default {
       try {
         const updatedCategory = await updateCategory(this.id, categoryDetails);
         this.successfulUpdate(updatedCategory.name);
+        this.$router.push("/admin/categories");
       } catch (error) {
         this.unsuccessfulUpdate(error);
       } finally {

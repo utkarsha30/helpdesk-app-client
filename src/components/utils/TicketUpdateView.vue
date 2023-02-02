@@ -208,7 +208,7 @@
               !$v.description.$dirty &&
               !$v.selectedCategory.$dirty
             "
-            >Submit</b-button
+            >Update</b-button
           >
         </b-form-group>
       </b-form>
@@ -390,6 +390,15 @@ export default {
             icon: "success",
             title: `Ticket '${updatedTicket._id}' was updated`,
           });
+          if (this.isClient) {
+            this.$router.push("/client");
+          }
+          if (this.isAgent) {
+            this.$router.push("/agent");
+          }
+          if (this.isAdmin) {
+            this.$router.push("/admin");
+          }
         } else {
           this.$swal({
             toast: true,

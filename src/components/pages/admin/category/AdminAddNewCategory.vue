@@ -99,6 +99,7 @@ export default {
             icon: "success",
             title: `New Category '${newCategory.name}' was added `,
           });
+          this.$router.push("/admin/categories");
         } else {
           this.$swal({
             toast: true,

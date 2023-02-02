@@ -225,6 +225,7 @@ export default {
           this.$nextTick(() => {
             this.$v.$reset();
           });
+          this.$router.push("/clientlogin");
         } else {
           this.$swal({
             toast: true,
