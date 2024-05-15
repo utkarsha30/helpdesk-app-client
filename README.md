@@ -28,7 +28,7 @@ To run this project locally, follow these steps:
  MongoDB instance running
 2. Clone the Repository
    ```sh
-   git clone https://github.com/utkarsha30/meetings-app.git
+   git clone https://github.com/utkarsha30/helpdesk-app-client.git
    
    cd helpdesk-app-client
 4. Install Dependencies
